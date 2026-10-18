@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/s1gmamale1/apple-design-skills",
+  "commit": "8a3fbea8b561405e5719d682ebd1d14c952aecd7",
+  "installed_on": "2026-09-12",
+  "global_directory": "/Users/admin/.codex/skills",
+  "skills": [
+    "apple-design",
+    "apple-design-backend",
+    "apple-design-foundations",
+    "apple-design-interaction",
+    "apple-design-materials",
+    "apple-design-motion",
+    "apple-design-os",
+    "apple-design-tactics",
+    "apple-design-web"
+  ]
+}

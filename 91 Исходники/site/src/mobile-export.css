@@ -1,0 +1,21 @@
+/* Standalone phone edition: safe areas, touch controls and a compact form */
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(90px + env(safe-area-inset-top))}
+body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+.header{padding-top:env(safe-area-inset-top)}
+.nav{top:100%}
+.footer{padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+.footer nav a{display:inline-flex;align-items:center;min-height:44px}
+.dialog-inner input,.dialog-inner select,.dialog-inner textarea{font-size:16px}
+@media(max-width:1000px){
+ .hero h1{font-size:clamp(32px,10.7vw,56px)}
+ .about-intro h1{font-size:clamp(34px,10.7vw,52px)}
+ .hero-image{height:clamp(220px,65vw,360px)}
+ .hero .button,.contact-actions,.contact-actions>.button{width:100%}
+ .button{min-height:52px;white-space:normal;text-align:center}
+ .button svg{flex-shrink:0}
+ .nav{max-height:calc(100dvh - 72px - env(safe-area-inset-top));overflow-y:auto;overscroll-behavior:contain}
+ .request-dialog{width:calc(100% - 16px);max-width:600px;max-height:calc(100dvh - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}
+ .dialog-inner{padding:40px 20px 24px}
+ .case-reference{overflow-wrap:anywhere}
+ .story>img{height:clamp(240px,80vw,380px)}
+}

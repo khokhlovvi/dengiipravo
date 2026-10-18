@@ -1,0 +1,9 @@
+.DS_Store
+.obsidian/workspace*.json
+.obsidian/cache
+.claudian/sessions/
+.trash/
+.inbox/
+.claude/settings*.json
+dist/
+91 Исходники/tmp/

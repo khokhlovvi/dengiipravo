@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --animate-marquee: marquee var(--duration) infinite linear;
+    --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+    --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+    --animate-shiny-text: shiny-text 8s infinite;
+    --animate-ripple: ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+        }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+        }
+    }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+        }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+        }
+    }
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+        }
+    }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+        }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+        }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+        }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+        }
+    }
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+        }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+        }
+    }
+  @keyframes ripple {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+        }
+  50% {
+    transform: translate(-50%, -50%) scale(0.9);
+        }
+    }
+}
+/* Палитра сайта «Деньги & Право» */
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-ink: #0f1318;
+  --color-text-2: #4b5664;
+  --color-text-3: #6a7584;
+  --color-navy: #082e50;
+  --color-navy-hover: #134166;
+  --color-navy-tint: #eaf1f7;
+  --color-line: #e1e6ec;
+  --color-surface: #f5f7f9;
+  --color-focus: #3d7fbf;
+  --color-background: #fff;
+  --color-border: #e1e6ec;
+  --color-foreground: var(--foreground, #0f1318);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 96px }
+body { @apply bg-white font-sans text-ink antialiased; min-width: 320px }
+h1, h2, h3 { text-wrap: balance }
+p { text-wrap: pretty }
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; border-radius: 4px }
+
+/* Если в системе выключено движение — бесконечные анимации стоят */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto }
+  *, *::before, *::after { animation: none !important; transition: none !important }
+}
+
+/* Фото без рамок: края уходят в белый фон */
+.hero-photo img, .story-photo img {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 72%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 72%, transparent);
+}
+@media (min-width: 1024px) {
+  .hero-photo img {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 50%), linear-gradient(to bottom, transparent, #000 12%, #000 70%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 50%), linear-gradient(to bottom, transparent, #000 12%, #000 70%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  .story-photo img {
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 45%), linear-gradient(to bottom, transparent, #000 18%, #000 78%, transparent);
+    mask-image: linear-gradient(to left, transparent, #000 45%), linear-gradient(to bottom, transparent, #000 18%, #000 78%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+}

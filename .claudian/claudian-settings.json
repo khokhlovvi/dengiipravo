@@ -1,0 +1,297 @@
+{
+  "userName": "",
+  "permissionMode": "bypassPermissions",
+  "model": "opus",
+  "thinkingBudget": "off",
+  "effortLevel": "high",
+  "serviceTier": "default",
+  "enableAutoTitleGeneration": true,
+  "titleGenerationLocale": "",
+  "titleGenerationModel": "",
+  "excludedTags": [],
+  "mediaFolder": "",
+  "systemPrompt": "",
+  "sharedEnvironmentVariables": "",
+  "envSnippets": [],
+  "customContextLimits": {},
+  "customModelAliases": {},
+  "keyboardNavigation": {
+    "scrollUpKey": "w",
+    "scrollDownKey": "s",
+    "focusInputKey": "i"
+  },
+  "requireCommandOrControlEnterToSend": false,
+  "locale": "ru",
+  "providerConfigs": {
+    "claude": {
+      "enabled": true,
+      "responseStyle": "Default",
+      "cliPath": "/Users/admin/.local/bin/claude",
+      "cliPathsByHost": {},
+      "loadUserSettings": true,
+      "enableChrome": false,
+      "customModels": "",
+      "defaultModel": "opus",
+      "lastModel": "opus",
+      "modelEnvironmentType": "opus",
+      "titleModelEnvironmentType": "",
+      "environmentVariables": "",
+      "environmentHash": "runtime-input:v1:15909777a403ee147e8d52565318cfe04f9b8f1df0f12b643a4ebc95fd3944d0",
+      "discoveredModels": [
+        {
+          "value": "default",
+          "displayName": "Default (recommended)",
+          "resolvedModel": "claude-opus-5-5",
+          "description": "Opus 5.5 · Best for everyday, complex tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "opus",
+          "displayName": "Opus 5.5",
+          "resolvedModel": "claude-opus-5-5",
+          "description": "For complex work and everyday tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "sonnet",
+          "displayName": "Sonnet 5.5",
+          "resolvedModel": "claude-sonnet-5-5",
+          "description": "Most efficient for simpler tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "fable",
+          "displayName": "Fable 5.1",
+          "resolvedModel": "claude-fable-5-1",
+          "description": "For your toughest challenges",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "haiku",
+          "displayName": "Haiku 5.5",
+          "resolvedModel": "claude-haiku-5-5",
+          "description": "Fastest for quick answers",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "claude-haiku-4-5-20251001",
+          "displayName": "Haiku 4.5",
+          "resolvedModel": "claude-haiku-4-5-20251001",
+          "description": "Fastest for quick answers"
+        },
+        {
+          "value": "claude-sonnet-5",
+          "displayName": "Sonnet 5",
+          "resolvedModel": "claude-sonnet-5",
+          "description": "Efficient for routine tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "claude-opus-5",
+          "displayName": "Opus 5",
+          "resolvedModel": "claude-opus-5",
+          "description": "Best for everyday, complex tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "claude-fable-5",
+          "displayName": "Fable 5",
+          "resolvedModel": "claude-fable-5",
+          "description": "Most capable for your hardest and longest-running tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "claude-opus-4-8",
+          "displayName": "Opus 4.8",
+          "resolvedModel": "claude-opus-4-8",
+          "description": "Best for everyday, complex tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "claude-opus-4-7",
+          "displayName": "Opus 4.7",
+          "resolvedModel": "claude-opus-4-7",
+          "description": "Best for everyday, complex tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "claude-opus-4-6",
+          "displayName": "Opus 4.6",
+          "resolvedModel": "claude-opus-4-6",
+          "description": "Best for everyday, complex tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "max"
+          ]
+        },
+        {
+          "value": "claude-sonnet-4-6",
+          "displayName": "Sonnet 4.6",
+          "resolvedModel": "claude-sonnet-4-6",
+          "description": "Efficient for routine tasks",
+          "effortLevels": [
+            "low",
+            "medium",
+            "high",
+            "max"
+          ]
+        }
+      ],
+      "discoveredModelsAt": 1791955777996,
+      "cliUpdateCheckedAt": 1791825639530,
+      "autoCompactWindow": 0,
+      "disabledToolPacks": [],
+      "toolPackSecrets": {}
+    },
+    "codex": {
+      "enabled": false,
+      "safeMode": "workspace-write",
+      "cliPath": "",
+      "cliPathsByHost": {},
+      "customModels": "",
+      "discoveredModels": [],
+      "modelAliases": {},
+      "visibleModels": null,
+      "enableUltraEffort": false,
+      "responseStyle": "pragmatic",
+      "reasoningSummary": "detailed",
+      "environmentVariables": "",
+      "environmentHash": "",
+      "catalogTimestamp": 0,
+      "catalogFingerprint": "",
+      "installationMethodsByHost": {},
+      "wslDistroOverridesByHost": {}
+    },
+    "grok": {
+      "catalogsByHost": {},
+      "cliPath": "",
+      "cliPathsByHost": {},
+      "enabled": false,
+      "environmentHash": "",
+      "environmentVariables": "",
+      "modelAliases": {},
+      "preferredReasoningByModel": {},
+      "visibleModels": null
+    },
+    "opencode": {
+      "cliPath": "",
+      "cliPathsByHost": {},
+      "enabled": false,
+      "environmentHash": "",
+      "environmentVariables": "",
+      "modelAliases": {},
+      "preferredThinkingByModel": {},
+      "selectedMode": "",
+      "thinkingOptionsByModel": {},
+      "visibleModels": []
+    },
+    "pi": {
+      "cliPath": "",
+      "cliPathsByHost": {},
+      "discoveredModels": [],
+      "enabled": false,
+      "environmentHash": "",
+      "environmentVariables": "",
+      "modelAliases": {},
+      "preferredThinkingByModel": {},
+      "toolMode": "all",
+      "visibleModels": []
+    }
+  },
+  "settingsProvider": "claude",
+  "lastSelectedChatModel": {
+    "providerId": "claude",
+    "model": "opus"
+  },
+  "savedProviderModel": {
+    "claude": "opus"
+  },
+  "savedProviderEffort": {
+    "claude": "high"
+  },
+  "savedProviderServiceTier": {},
+  "savedProviderThinkingBudget": {},
+  "savedProviderPermissionMode": {
+    "claude": "bypassPermissions"
+  },
+  "pendingProviderSessionInvalidations": {},
+  "lastCustomModel": "",
+  "maxWarmAgentProcesses": 5,
+  "enableAutoScroll": true,
+  "showMessageTimestamps": false,
+  "deferMathRenderingDuringStreaming": true,
+  "expandFileEditsByDefault": false,
+  "chatViewPlacement": "right-sidebar",
+  "enableDualPane": true,
+  "dualPaneSide": "right",
+  "restoreTabsOnStartup": true,
+  "collabEnabled": false,
+  "collabProjectsFolder": "workspace",
+  "collabGitPath": "",
+  "sessionManagerOrganization": "list",
+  "sessionManagerSort": "last-updated",
+  "pinnedLinkedContentPaths": [],
+  "hiddenProviderCommands": {}
+}
