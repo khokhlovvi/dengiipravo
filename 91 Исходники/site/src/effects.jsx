@@ -10,7 +10,7 @@ export function Marquee({ items, reverse, duration = 40 }) {
     <div className={`marquee ${reverse ? 'marquee-reverse' : ''}`} style={{ '--duration': `${duration}s` }}>
       {[0, 1, 2, 3].map(copy => (
         <div className="marquee-track" key={copy} aria-hidden={copy > 0 || undefined}>
-          {items.map(item => <span className="pill" key={item}>{item}</span>)}
+          {items.map(({ name, kind }) => <span className={`pill pill-${kind}`} key={name}>{name}</span>)}
         </div>
       ))}
     </div>
@@ -18,14 +18,14 @@ export function Marquee({ items, reverse, duration = 40 }) {
 }
 
 // Карточка с подсветкой рамки и фона там, где курсор
-export function GlowCard({ children, className = '', as: Tag = 'article' }) {
+export function GlowCard({ children, className = '', as: Tag = 'article', style }) {
   function move(e) {
     const r = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
     e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
   }
   return (
-    <Tag className={`glow-card ${className}`} onPointerMove={move}>
+    <Tag className={`glow-card ${className}`} style={style} onPointerMove={move}>
       <div className="glow-card-inner">{children}</div>
     </Tag>
   );

@@ -167,9 +167,9 @@ p { font-size: clamp(17px, 1.25vw, 18px); line-height: 1.6; color: var(--text-2)
 .marquee:hover .marquee-track { animation-play-state: paused }
 @keyframes marquee { to { transform: translateX(calc(-100% - 16px)) } }
 .pill { padding: 10px 20px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; color: var(--text-2); white-space: nowrap }
+.pill-law { border-color: #d3e0ec; background: var(--navy-tint); color: var(--navy) }
 
 /* Карточки с подсветкой под курсором */
-.task-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px }
 .glow-card {
   --x: -300px; --y: -300px;
   padding: 1px; border-radius: 16px;
@@ -181,8 +181,6 @@ p { font-size: clamp(17px, 1.25vw, 18px); line-height: 1.6; color: var(--text-2)
 .glow-card-inner > * { position: relative }
 .glow-card h3 { font-size: clamp(21px, 1.8vw, 24px) }
 .glow-card .text-button { margin-top: auto; padding-top: 12px }
-.glow-card ul { padding-left: 22px; color: var(--text-2); font-size: clamp(17px, 1.25vw, 18px); line-height: 1.6 }
-.glow-card li + li { margin-top: 6px }
 
 /* Принцип: текст проявляется по словам */
 .principle { background: var(--surface) }
@@ -209,31 +207,32 @@ html:not(.motion) .principle-note { margin-top: 0 }
 .expertise-item h3 { font-size: 20px }
 .expertise-item p { margin-top: 8px; font-size: 16px }
 
-/* Наш опыт */
+/* Шахматная доска: финансы и право чередуются, тонкие линии между клетками — это фон доски */
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--line) }
+.board-2 { grid-template-columns: 1fr 1fr }
+.board-2 > * { order: var(--o2) }
+.cell { --cell-bg: #fff; background: var(--cell-bg) }
+.cell-law { --cell-bg: var(--navy-tint) }
+.board .glow-card { padding: 0; border-radius: 0 }
+.cell-inner, .board .glow-card-inner { display: flex; flex-direction: column; gap: 14px; height: 100%; padding: clamp(24px, 2.6vw, 36px); border-radius: 0; background: transparent }
+.cell-law .glow-card-inner::before { background: radial-gradient(260px circle at var(--x) var(--y), rgba(255, 255, 255, .8), transparent 100%) }
+.cell-kind { font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3) }
+.cell-law .cell-kind { color: var(--navy) }
+.board h3 { font-size: clamp(20px, 1.6vw, 23px) }
+.board p { font-size: 16px }
+.board .cell-desc { margin-top: -8px; font-size: 15px; font-weight: 500; color: var(--text-2) }
+.board .text-button { margin-top: auto; padding-top: 4px }
+.board .case-reference { display: grid; gap: 2px; margin-top: auto; font-size: 14px; color: var(--text-3) }
+.cell-law .case-reference { color: var(--text-2) }
+.case-reference span:first-child { color: var(--navy); font-weight: 500 }
 .cases-section { padding-top: clamp(32px, 4vw, 64px) }
-.experience-group { margin: 48px 0 20px; font-size: 14px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3) }
-.finance-experience + .experience-group { margin-top: 64px }
-.finance-experience { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px }
-.finance-experience article { padding: 24px; border-radius: 16px; background: var(--surface) }
-.finance-experience h4 { margin: 0 0 12px; font-size: 18px; font-weight: 500; line-height: 1.3; letter-spacing: -.015em }
-.finance-experience p { font-size: 15px; line-height: 1.6 }
-.cases-section > h2 { margin-bottom: 0 }
+.client-tasks .board p { font-size: clamp(16px, 1.2vw, 17px) }
 
 /* Решения */
 .solutions-intro { position: relative; overflow: hidden; padding-block: var(--section) }
 .solutions-intro .container { position: relative }
 .solutions-intro .page-title { margin-bottom: 24px }
 .page-lead { max-width: 820px; margin-bottom: clamp(40px, 5vw, 64px); font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55 }
-.instrument-list { border-top: 1px solid var(--line) }
-.instrument { border-bottom: 1px solid var(--line) }
-.instrument .disclosure-toggle { display: grid; grid-template-columns: minmax(200px, 32%) 1fr 40px; gap: 16px; align-items: center; min-height: 88px; padding: 20px 4px }
-.instrument-name { font-size: clamp(21px, 1.8vw, 25px); font-weight: 500; letter-spacing: -.025em }
-.instrument-desc { font-size: 16px; color: var(--text-2) }
-.instrument-detail { padding: 0 72px 30px calc(32% + 20px) }
-.instrument-detail p { max-width: 680px }
-.instrument-detail .text-button { margin-top: 10px }
-.legal-section { background: var(--surface); padding-block: var(--section) }
-.legal-section h2 { margin-bottom: clamp(32px, 4vw, 52px) }
 .step-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px }
 .step-cards article { padding: 32px; border-radius: 16px; background: var(--surface) }
 .step-number { display: block; margin-bottom: 18px; font-size: 15px; font-variant-numeric: tabular-nums; color: var(--text-3) }
@@ -255,32 +254,6 @@ html:not(.motion) .principle-note { margin-top: 0 }
 .contact-details { display: grid; justify-items: end; gap: 6px; font-style: normal }
 .contact-details a { display: inline-flex; align-items: center; gap: 12px; min-height: 40px; font-size: 18px; color: #fff; overflow-wrap: anywhere }
 .contact-details a:hover { text-decoration: underline; text-underline-offset: 5px }
-
-/* Раскрывающиеся списки */
-.disclosure-toggle { width: 100%; border: 0; background: none; text-align: left; color: inherit }
-.disclosure-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease), visibility .5s }
-.disclosure-inner { min-height: 0; overflow: hidden }
-.disclosure.is-open > .disclosure-panel { grid-template-rows: 1fr }
-.disclosure:not(.is-open) > .disclosure-panel { visibility: hidden }
-.toggle-icon {
-  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-strong); color: var(--navy);
-  transition: transform .4s var(--ease), background .2s, border-color .2s, color .2s;
-}
-.disclosure-toggle:hover .toggle-icon { border-color: var(--navy) }
-.disclosure.is-open .toggle-icon { transform: rotate(45deg); background: var(--navy); border-color: var(--navy); color: #fff }
-
-/* Судебная практика */
-.cases { border-top: 1px solid var(--line) }
-.case { border-bottom: 1px solid var(--line) }
-.case .disclosure-toggle { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px); padding-block: 28px; min-height: 96px }
-.case-index { align-self: flex-start; width: 24px; padding-top: 3px; font-size: 14px; font-variant-numeric: tabular-nums; color: var(--text-3) }
-.case-summary { flex: 1; display: grid; gap: 8px }
-.case-tag { font-size: 14px; color: var(--text-3) }
-.case-title { font-size: clamp(20px, 1.8vw, 25px); font-weight: 500; line-height: 1.25; letter-spacing: -.02em }
-.case-detail { padding: 0 72px 32px calc(24px + clamp(16px, 2.4vw, 32px)); max-width: 1000px }
-.case-reference { display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 20px; font-size: 15px; color: var(--text-3) }
-.case-reference span:first-child { color: var(--navy); font-weight: 500 }
 
 /* Подвал */
 .footer { border-top: 1px solid var(--line) }
@@ -359,9 +332,8 @@ html:not(.motion) .principle-note { margin-top: 0 }
 
 .motion-ready .reveal { opacity: 0; transform: translateY(16px); filter: blur(6px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), filter var(--dur) var(--ease) }
 .motion-ready .reveal.is-visible { opacity: 1; transform: none; filter: none }
-.motion-ready .task-cards > .reveal:nth-child(even), .motion-ready .finance-experience > .reveal:nth-child(2), .motion-ready .step-cards > .reveal:nth-child(2) { transition-delay: .08s }
-.motion-ready .finance-experience > .reveal:nth-child(3), .motion-ready .step-cards > .reveal:nth-child(3) { transition-delay: .16s }
-.motion-ready .finance-experience > .reveal:nth-child(4) { transition-delay: .24s }
+.motion-ready .step-cards > .reveal:nth-child(2) { transition-delay: .08s }
+.motion-ready .step-cards > .reveal:nth-child(3) { transition-delay: .16s }
 
 .request-dialog[open] { animation: dialog-in .45s var(--ease) }
 .request-dialog[open]::backdrop { animation: fade-in .3s ease }
@@ -399,11 +371,11 @@ html:not(.motion) .principle-note { margin-top: 0 }
   .story-copy { grid-column: 2; padding-left: 32px }
 }
 
-/* Планшет */
-@media (max-width: 1100px) {
-  .finance-experience { grid-template-columns: 1fr 1fr }
-  .instrument .disclosure-toggle { grid-template-columns: minmax(180px, 34%) 1fr 40px }
-  .instrument-detail { padding-left: calc(34% + 20px); padding-right: 32px }
+/* Планшет: доска в две колонки */
+@media (max-width: 960px) {
+  .board-3 { grid-template-columns: 1fr 1fr }
+  .board-3 > * { order: var(--o2) }
+  .board-odd > :last-child { grid-column: 1 / -1 }
 }
 
 /* Меню-гамбургер */
@@ -423,7 +395,7 @@ html:not(.motion) .principle-note { margin-top: 0 }
   .nav a[aria-current="page"]::after { display: none }
   .nav a[aria-current="page"] { color: var(--navy); font-weight: 500 }
 
-  .task-cards, .step-cards { grid-template-columns: 1fr }
+  .step-cards { grid-template-columns: 1fr }
   .contact-inner { grid-template-columns: 1fr; align-items: start }
   .contact-actions, .contact-details { align-items: flex-start; justify-items: start }
   .ripple { inset: 0 0 0 30% }
@@ -444,16 +416,8 @@ html:not(.motion) .principle-note { margin-top: 0 }
   .principle-note { margin-top: -18vh; padding-bottom: 72px }
   .story-media { height: 280px }
 
-  .finance-experience { grid-template-columns: 1fr }
-  .case .disclosure-toggle { align-items: flex-start; padding-block: 22px; min-height: 0 }
-  .case-detail { padding: 0 0 26px }
-  .case-reference { flex-direction: column }
-  .toggle-icon { width: 36px; height: 36px }
-
-  .instrument .disclosure-toggle { grid-template-columns: 1fr 36px; gap: 6px 12px; padding: 20px 4px }
-  .instrument-desc { grid-row: 2; grid-column: 1; font-size: 15px; line-height: 1.4 }
-  .instrument .toggle-icon { grid-column: 2; grid-row: 1 / 3 }
-  .instrument-detail { padding: 0 4px 24px }
+  .board-3, .board-2 { grid-template-columns: 1fr }
+  .board-3 > *, .board-2 > * { order: 0 }
 
   .contact-actions, .contact-actions .shimmer-button { width: 100% }
   .footer-inner { grid-template-columns: 1fr; gap: 24px }

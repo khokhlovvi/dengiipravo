@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Plus, X, List, Check, WarningCircle, Phone, EnvelopeSimple, Scales, Bank, Gavel } from '@phosphor-icons/react';
+import { ArrowRight, X, List, Check, WarningCircle, Phone, EnvelopeSimple, Scales, Bank, Gavel } from '@phosphor-icons/react';
 import { Marquee, GlowCard, ShimmerButton, TextReveal, FlickeringGrid, Ripple } from './effects.jsx';
-import { site, instruments, legalServices, financeExperience, cases, steps, topics, pages } from './content.js';
+import { site, solutions, experience, steps, topics, pages } from './content.js';
 
 const routes = ['/', '/solutions', '/privacy'];
 
@@ -25,15 +25,24 @@ function Picture({ name, alt = '', className, priority, sizes = '100vw' }) {
   );
 }
 
-function Disclosure({ id, open, onToggle, summary, children, className = '' }) {
+// Шахматная доска: финансы и право чередуются, соседние клетки всегда разного цвета
+// В две колонки каждая вторая строка переставляется (--o2), иначе чередование сложилось бы в полосы
+function Board({ items, cols = 3, className = '', children }) {
   return (
-    <div className={`disclosure ${open ? 'is-open' : ''} ${className}`}>
-      <button type="button" className="disclosure-toggle" aria-expanded={open} aria-controls={id} onClick={onToggle}>{summary}</button>
-      <div className="disclosure-panel" id={id} inert={!open}>
-        <div className="disclosure-inner">{children}</div>
-      </div>
+    <div className={`board board-${cols} ${items.length % 2 ? 'board-odd' : ''} ${className}`}>
+      {items.map((item, i) => children(item, { '--o2': Math.floor(i / 2) % 2 ? i + (i % 2 ? -1 : 1) : i }))}
     </div>
   );
+}
+
+const kinds = { finance: 'Финансы', law: 'Право' };
+
+function BoardCell({ kind, label, style, glow, children }) {
+  const body = <><span className="cell-kind">{kinds[kind]}{label && ` · ${label}`}</span>{children}</>;
+  const cls = `cell cell-${kind}`;
+  return glow
+    ? <GlowCard className={cls} style={style}>{body}</GlowCard>
+    : <article className={cls} style={style}><div className="cell-inner">{body}</div></article>;
 }
 
 // Мягкое появление блоков при прокрутке: то, что уже на экране, показываем сразу
@@ -118,9 +127,12 @@ function RequestDialog({ dialogRef, topic }) {
   );
 }
 
+// Задачи клиентов: доска 2 × 2, финансы и право по диагонали
 const tasks = [
-  ['Финансовые решения для бизнеса', ['Формируем финансовую стратегию на основе юридической и коммерческой экспертизы нашей компании: от структурирования актива до сопровождения сделок', 'Помогаем подобрать финансирование, привлечь капитал и подготовить активы к требованиям участников сделки'], 'Обсудить задачу бизнеса', 'Обсуждение задачи'],
-  ['Правовая защита личного капитала', ['Защищаем личный капитал и интересы собственников в вопросах наследства, раздела имущества и признания прав', 'Помогаем разрешать имущественные споры и готовить сделки с недвижимостью'], 'Обсудить защиту капитала', 'Защита личного капитала'],
+  ['finance', 'Финансовая стратегия', 'Формируем финансовую стратегию на основе юридической и коммерческой экспертизы нашей компании: от структурирования актива до сопровождения сделок', 'Обсудить задачу бизнеса', 'Обсуждение задачи'],
+  ['law', 'Защита личного капитала', 'Защищаем личный капитал и интересы собственников в вопросах наследства, раздела имущества и признания прав', 'Обсудить защиту капитала', 'Защита личного капитала'],
+  ['finance', 'Финансирование и капитал', 'Помогаем подобрать финансирование, привлечь капитал и подготовить активы к требованиям банков, лизинговых компаний и инвесторов', 'Обсудить финансирование', 'Обсуждение задачи'],
+  ['law', 'Споры и сделки с недвижимостью', 'Помогаем разрешать имущественные и земельные споры, в том числе в Верховном Суде РФ, и готовить сделки с недвижимостью', 'Обсудить спор или сделку', 'Защита владельца недвижимости'],
 ];
 
 const expertise = [
@@ -130,7 +142,6 @@ const expertise = [
 ];
 
 function AboutPage({ request, link }) {
-  const [open, setOpen] = useState({});
   return (
     <>
       <section className="hero">
@@ -148,21 +159,21 @@ function AboutPage({ request, link }) {
       </section>
 
       <section className="solutions-strip" aria-label="Направления работы">
-        <Marquee items={instruments.map(i => i[0])} duration={45} />
-        <Marquee items={legalServices.map(i => i[0])} duration={40} reverse />
+        <Marquee items={solutions} duration={85} />
+        <Marquee items={[...solutions].reverse()} duration={80} reverse />
       </section>
 
       <section className="container section client-tasks">
         <h2 className="reveal">С какими задачами к нам обращаются</h2>
-        <div className="task-cards">
-          {tasks.map(([title, text, cta, topic]) => (
-            <GlowCard key={title} className="reveal">
+        <Board items={tasks} cols={2} className="reveal">
+          {([kind, title, text, cta, topic], style) => (
+            <BoardCell key={title} kind={kind} style={style} glow>
               <h3>{title}</h3>
-              {text.map(p => <p key={p}>{p}</p>)}
+              <p>{text}</p>
               <button type="button" className="text-button" onClick={() => request(topic)}>{cta} <ArrowRight size={18} /></button>
-            </GlowCard>
-          ))}
-        </div>
+            </BoardCell>
+          )}
+        </Board>
       </section>
 
       <section className="principle" aria-label="Принцип работы">
@@ -194,75 +205,38 @@ function AboutPage({ request, link }) {
 
       <section className="container section cases-section" id="experience">
         <h2 className="reveal">Наш опыт</h2>
-        <h3 className="experience-group reveal">Финансы и развитие бизнеса</h3>
-        <div className="finance-experience">
-          {financeExperience.map(([title, text]) => (
-            <article key={title} className="reveal">
-              <h4>{title}</h4>
+        <Board items={experience} className="reveal">
+          {({ kind, tag, title, text, number, court }, style) => (
+            <BoardCell key={title} kind={kind} label={tag} style={style}>
+              <h3>{title}</h3>
               <p>{text}</p>
-            </article>
-          ))}
-        </div>
-        <h3 className="experience-group reveal">Судебная практика</h3>
-        <div className="cases">
-          {cases.map(([tag, title, number, court, text], i) => (
-            <Disclosure key={number} id={`case-${i}`} className="case reveal" open={!!open[i]} onToggle={() => setOpen({ ...open, [i]: !open[i] })}
-              summary={<>
-                <span className="case-index">{String(i + 1).padStart(2, '0')}</span>
-                <span className="case-summary"><span className="case-tag">{tag}</span><span className="case-title">{title}</span></span>
-                <span className="toggle-icon"><Plus size={20} /></span>
-              </>}>
-              <div className="case-detail">
-                <p>{text}</p>
-                <p className="case-reference"><span>{number}</span><span>{court}</span></p>
-              </div>
-            </Disclosure>
-          ))}
-        </div>
+              {number && <p className="case-reference"><span>{number}</span><span>{court}</span></p>}
+            </BoardCell>
+          )}
+        </Board>
       </section>
     </>
   );
 }
 
 function SolutionsPage({ request }) {
-  const [open, setOpen] = useState(null);
   return (
     <>
       <section className="solutions-intro">
         <div className="dot-pattern" aria-hidden="true" />
         <div className="container">
-          <h1 className="page-title">Финансовые инструменты <br className="desktop-break" />под вашу задачу</h1>
-          <p className="page-lead">Подбираем инструмент, когда понимаем стратегию бизнеса и задачу, которую должно решить финансирование, — и привлекаем к сделке подходящих партнёров: от крупнейших игроков рынка до специализированных компаний для нестандартных случаев</p>
-          <div className="instrument-list">
-            {instruments.map(([name, desc, detail], i) => (
-              <Disclosure key={name} id={`instrument-${i}`} className="instrument reveal" open={open === i} onToggle={() => setOpen(open === i ? null : i)}
-                summary={<>
-                  <span className="instrument-name">{name}</span>
-                  <span className="instrument-desc">{desc}</span>
-                  <span className="toggle-icon"><Plus size={20} /></span>
-                </>}>
-                <div className="instrument-detail">
-                  <p>{detail}</p>
-                  <button type="button" className="text-button" onClick={() => request(name)}>Обсудить {name.toLowerCase()} <ArrowRight size={18} /></button>
-                </div>
-              </Disclosure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="legal-section" id="legal">
-        <div className="container">
-          <h2 className="reveal">Правовая работа</h2>
-          <div className="task-cards legal-cards">
-            {legalServices.map(([name, desc]) => (
-              <GlowCard key={name} className="reveal">
+          <h1 className="page-title">Финансы и право <br className="desktop-break" />под вашу задачу</h1>
+          <p className="page-lead">Смотрим на задачу одновременно с точки зрения денег и права: подбираем финансовый инструмент, проверяем актив и сделку, защищаем интересы в суде. Решение строим от стратегии бизнеса и привлекаем к работе подходящих партнёров — от крупнейших игроков рынка до специализированных компаний для нестандартных случаев</p>
+          <Board items={solutions} className="reveal">
+            {({ kind, name, desc, detail }, style) => (
+              <BoardCell key={name} kind={kind} style={style} glow>
                 <h3>{name}</h3>
-                {Array.isArray(desc) ? <ul>{desc.map(item => <li key={item}>{item}</li>)}</ul> : <p>{desc}</p>}
-                <button type="button" className="text-button" onClick={() => request(name)}>Обсудить задачу <ArrowRight size={18} /></button>
-              </GlowCard>
-            ))}
-          </div>
+                <p className="cell-desc">{desc}</p>
+                <p>{detail}</p>
+                <button type="button" className="text-button" aria-label={`Обсудить: ${name}`} onClick={() => request(name)}>Обсудить задачу <ArrowRight size={18} /></button>
+              </BoardCell>
+            )}
+          </Board>
         </div>
       </section>
 
