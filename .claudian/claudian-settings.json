@@ -3,7 +3,7 @@
   "permissionMode": "bypassPermissions",
   "model": "opus",
   "thinkingBudget": "off",
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "serviceTier": "default",
   "enableAutoTitleGeneration": true,
   "titleGenerationLocale": "",
@@ -269,7 +269,7 @@
     "claude": "opus"
   },
   "savedProviderEffort": {
-    "claude": "xhigh"
+    "claude": "high"
   },
   "savedProviderServiceTier": {},
   "savedProviderThinkingBudget": {},
