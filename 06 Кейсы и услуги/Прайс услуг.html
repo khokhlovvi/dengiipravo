@@ -278,7 +278,7 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
   body { font-size: 11px }
   .header, .hero-actions, .dot-pattern, .ripple, .contact-dots, .contact-actions .shimmer-button, details.includes summary, .faq summary svg { display: none !important }
   .reveal { opacity: 1 !important; transform: none !important; filter: none !important }
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; animation: none !important; transition: none !important }
 
   h1 { font-size: 30px } h2 { font-size: 21px } h3 { font-size: 14px }
   p { font-size: 11.5px; line-height: 1.5 }
@@ -297,7 +297,8 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
   .step-cards article { padding: 14px; gap: 6px }
   .step-cards p { font-size: 10.5px }
 
-  .board { grid-template-columns: repeat(3, 1fr); border-radius: 10px }
+  .board { grid-template-columns: repeat(3, 1fr); gap: 0; background: none; border: 0; border-radius: 0; overflow: visible }
+  .cell { box-shadow: inset 0 0 0 .5px var(--line-strong) }
   .board > * { order: 0 }
   .cell { padding: 14px; gap: 6px; break-inside: avoid }
   .cell-desc { font-size: 10.5px; margin-top: -2px }
@@ -320,7 +321,8 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
   .package li { grid-template-columns: 14px 1fr; gap: 6px }
   .package li svg { width: 12px; height: 12px }
 
-  .consult { background: none }
+  .consult { background: none; break-inside: avoid }
+  .consult-grid { break-inside: avoid }
   .consult-grid { grid-template-columns: repeat(4, 1fr) }
   .consult-grid > div { padding: 12px; gap: 4px }
   .consult-grid h3 { font-size: 12px } .consult-grid p { font-size: 10px }
