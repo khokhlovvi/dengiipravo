@@ -271,21 +271,75 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
   .price-note { min-height: 0 }
 }
 
-/* Печать и PDF */
+/* Печать и PDF: A4, колонки как на компьютере, шрифт мельче */
 @media print {
-  @page { size: A4; margin: 14mm }
-  :root { font-size: 12px }
-  .header, .hero-actions, .dot-pattern, .ripple, .contact-dots, .contact-actions .shimmer-button { display: none }
-  .section { padding-block: 28px }
-  .hero-inner { padding-block: 8px 28px }
+  @page { size: A4; margin: 12mm 12mm 14mm }
+  :root { --gutter: 0px; --section: 22px }
+  body { font-size: 11px }
+  .header, .hero-actions, .dot-pattern, .ripple, .contact-dots, .contact-actions .shimmer-button, details.includes summary, .faq summary svg { display: none !important }
   .reveal { opacity: 1 !important; transform: none !important; filter: none !important }
-  .board, .packages, .consult-grid, .faq details, .price-table tr { break-inside: avoid }
-  .cell, .package, .consult-grid > div { break-inside: avoid }
-  details.includes > ul, .faq .answer { display: grid !important }
-  .contact { background: #fff; color: var(--ink); border-top: 2px solid var(--navy) }
-  .contact h2, .contact-details a { color: var(--ink) }
-  .contact p { color: var(--text-2) }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact }
+
+  h1 { font-size: 30px } h2 { font-size: 21px } h3 { font-size: 14px }
+  p { font-size: 11.5px; line-height: 1.5 }
+  .eyebrow, .cell-kind, .price-table thead th { font-size: 9px }
+  .section-head { gap: 6px; margin-bottom: 14px }
+  .section-head p { font-size: 11.5px }
+
+  .hero { border: 0 }
+  .hero-inner { grid-template-columns: 1.3fr 1fr; gap: 28px; padding-block: 0 8px }
+  .hero h1 { margin-top: 12px } .hero-lead { margin-top: 12px; font-size: 12px }
+  .terms > div { padding: 10px 14px; grid-template-columns: 26px 1fr; gap: 2px 10px }
+  .terms svg { width: 18px; height: 18px }
+  .terms strong { font-size: 12px } .terms span { font-size: 10.5px }
+
+  .step-cards { grid-template-columns: repeat(3, 1fr); gap: 8px }
+  .step-cards article { padding: 14px; gap: 6px }
+  .step-cards p { font-size: 10.5px }
+
+  .board { grid-template-columns: repeat(3, 1fr); border-radius: 10px }
+  .board > * { order: 0 }
+  .cell { padding: 14px; gap: 6px; break-inside: avoid }
+  .cell-desc { font-size: 10.5px; margin-top: -2px }
+  details.includes > ul { display: grid !important; padding-left: 14px; font-size: 10px; gap: 2px }
+  .price { padding-top: 8px }
+  .price-main { font-size: 17px } .price-note { min-height: 0; font-size: 9.5px }
+
+  #courts { break-before: page }
+  .split { grid-template-columns: 1fr 1.7fr; gap: 28px }
+  .split .section-head { position: static }
+  .price-table th, .price-table td { padding: 9px 0; font-size: 12px }
+  .price-table tbody th { font-size: 12px } .price-table tbody th span { font-size: 10.5px; margin-top: 2px }
+  .price-table td small { font-size: 9.5px }
+  .price-table tr { break-inside: avoid }
+  .table-note { font-size: 10px; margin-top: 8px }
+
+  .packages { grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: none }
+  .package { padding: 16px; gap: 8px; break-inside: avoid }
+  .package ul { font-size: 10.5px; gap: 4px }
+  .package li { grid-template-columns: 14px 1fr; gap: 6px }
+  .package li svg { width: 12px; height: 12px }
+
+  .consult { background: none }
+  .consult-grid { grid-template-columns: repeat(4, 1fr) }
+  .consult-grid > div { padding: 12px; gap: 4px }
+  .consult-grid h3 { font-size: 12px } .consult-grid p { font-size: 10px }
+  .consult-grid .price-main { font-size: 14px; margin-top: 4px }
+
+  .faq details { break-inside: avoid }
+  .faq summary { min-height: 0; padding-block: 8px 4px; font-size: 12.5px }
+  .faq .answer { padding-bottom: 8px }
+  .faq .answer p { font-size: 10.5px }
+  .disclaimer { margin-top: 12px; font-size: 9.5px }
+
+  .contact { background: #fff; color: var(--ink); border-top: 2px solid var(--navy); break-inside: avoid }
+  .contact-inner { grid-template-columns: 1.4fr 1fr; padding-block: 16px 0; gap: 16px }
+  .contact h2 { color: var(--ink); font-size: 18px }
+  .contact p { color: var(--text-2); font-size: 11px; margin-top: 6px }
+  .contact-actions, .contact-details { align-items: flex-end; justify-items: end }
+  .contact-details a { color: var(--ink); font-size: 12px; min-height: 0 }
+  .contact-details svg { width: 14px; height: 14px }
+  .footer-legal { padding-block: 12px 0; font-size: 9.5px }
 }
 </style>
 </head>
@@ -371,77 +425,77 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
           <h3>Правовая экспертиза</h3>
           <p class="cell-desc">Проверка актива и компании</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Проверка прав на объект, обременений и истории сделок</li><li>Проверка продавца, контрагента или компании-цели</li><li>Судебные и исполнительные риски</li><li>Письменное заключение с выводами и рекомендациями</li></ul></details>
-          <div class="price"><span class="price-main">от 80 000 ₽</span><span class="price-note">объект недвижимости · due diligence компании — от 200 000 ₽</span></div>
+          <div class="price"><span class="price-main">от 80 000 ₽</span><span class="price-note">объект недвижимости · due diligence компании — от 200 000 ₽</span></div>
         </article>
         <article class="cell cell-finance" style="--o2:3">
           <span class="cell-kind">Финансы</span>
           <h3>Возвратный лизинг</h3>
           <p class="cell-desc">Ликвидность на основе ваших активов</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Оценка актива как обеспечения</li><li>Подбор лизинговых компаний и сравнение условий</li><li>Правовая проверка сделки купли-продажи и лизинга</li><li>Сопровождение до поступления денег</li></ul></details>
-          <div class="price"><span class="price-main">от 1,5 %</span><span class="price-note">от суммы финансирования, после поступления денег</span></div>
+          <div class="price"><span class="price-main">от 1,5 %</span><span class="price-note">от суммы финансирования, после поступления денег</span></div>
         </article>
         <article class="cell cell-law" style="--o2:2">
           <span class="cell-kind">Право</span>
           <h3>Защита владельца недвижимости</h3>
           <p class="cell-desc">Права добросовестного приобретателя</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Анализ дела и позиции другой стороны</li><li>Сбор доказательств, работа с экспертизой</li><li>Процессуальные документы и участие в заседаниях</li><li>Споры о сносе и о недействительности сделок</li></ul></details>
-          <div class="price"><span class="price-main">от 300 000 ₽</span><span class="price-note">ведение дела в первой инстанции</span></div>
+          <div class="price"><span class="price-main">от 300 000 ₽</span><span class="price-note">ведение дела в первой инстанции</span></div>
         </article>
         <article class="cell cell-finance" style="--o2:4">
           <span class="cell-kind">Финансы</span>
           <h3>Кредитование</h3>
           <p class="cell-desc">Финансирование от финансовых институтов</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Анализ компании глазами банка</li><li>Подбор кредиторов и подготовка пакета документов</li><li>Структура обеспечения: залог, поручительства</li><li>Переговоры и проверка кредитной документации</li></ul></details>
-          <div class="price"><span class="price-main">от 2 %</span><span class="price-note">от суммы кредита после выдачи · подготовка пакета документов — от 50 000 ₽, засчитывается в вознаграждение</span></div>
+          <div class="price"><span class="price-main">от 2 %</span><span class="price-note">от суммы кредита после выдачи · подготовка пакета документов — от 50 000 ₽, засчитывается в вознаграждение</span></div>
         </article>
         <article class="cell cell-law" style="--o2:5">
           <span class="cell-kind">Право</span>
           <h3>Сопровождение сделок</h3>
           <p class="cell-desc">Структура, документы, согласование</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Структура сделки и порядок расчётов</li><li>Договоры, корпоративные одобрения</li><li>Переговоры со второй стороной и банком</li><li>Подача на регистрацию и контроль до её завершения</li></ul></details>
-          <div class="price"><span class="price-main">от 150 000 ₽</span><span class="price-note">или от 0,5 % от суммы сделки, если она крупная</span></div>
+          <div class="price"><span class="price-main">от 150 000 ₽</span><span class="price-note">или от 0,5 % от суммы сделки, если она крупная</span></div>
         </article>
         <article class="cell cell-finance" style="--o2:7">
           <span class="cell-kind">Финансы</span>
           <h3>Банковские гарантии</h3>
           <p class="cell-desc">Обеспечение обязательств перед контрагентами</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Подбор банков под требования получателя</li><li>Проверка текста гарантии по условиям контракта</li><li>Подготовка документов и согласование с банком</li></ul></details>
-          <div class="price"><span class="price-main">от 15 000 ₽</span><span class="price-note">за гарантию · сложные и крупные — по договорённости</span></div>
+          <div class="price"><span class="price-main">от 15 000 ₽</span><span class="price-note">за гарантию · сложные и крупные — по договорённости</span></div>
         </article>
         <article class="cell cell-law" style="--o2:6">
           <span class="cell-kind">Право</span>
           <h3>Споры с государственными органами</h3>
           <p class="cell-desc">Иски прокуратуры и органов власти</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Оспаривание актов, предписаний и требований</li><li>Защита по искам прокуратуры</li><li>Досудебная работа с ведомством</li><li>Представительство во всех инстанциях</li></ul></details>
-          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">ведение дела в первой инстанции</span></div>
+          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">ведение дела в первой инстанции</span></div>
         </article>
         <article class="cell cell-finance" style="--o2:8">
           <span class="cell-kind">Финансы</span>
           <h3>Частный капитал</h3>
           <p class="cell-desc">Инвестиции под задачи бизнеса</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Финансовая модель и инвестиционный меморандум</li><li>Подбор и выход на инвесторов</li><li>Структура участия: доля, заём, конвертация</li><li>Корпоративные документы и защита интересов собственника</li></ul></details>
-          <div class="price"><span class="price-main">от 300 000 ₽</span><span class="price-note">подготовка проекта + от 3 % от привлечённых инвестиций · аванс засчитывается</span></div>
+          <div class="price"><span class="price-main">от 300 000 ₽</span><span class="price-note">подготовка проекта + от 3 % от привлечённых инвестиций · аванс засчитывается</span></div>
         </article>
         <article class="cell cell-law" style="--o2:9">
           <span class="cell-kind">Право</span>
           <h3>Защита личного капитала</h3>
           <p class="cell-desc">Private wealth</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Аудит структуры владения активами</li><li>Наследственное планирование и наследственные споры</li><li>Раздел имущества и брачные договоры</li><li>Признание прав на активы</li></ul></details>
-          <div class="price"><span class="price-main">от 200 000 ₽</span><span class="price-note">структурирование · судебный спор — от 300 000 ₽</span></div>
+          <div class="price"><span class="price-main">от 200 000 ₽</span><span class="price-note">структурирование · судебный спор — от 300 000 ₽</span></div>
         </article>
         <article class="cell cell-finance" style="--o2:11">
           <span class="cell-kind">Финансы</span>
           <h3>Фонды</h3>
           <p class="cell-desc">Подбор источника под параметры проекта</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Подбор федеральных и региональных программ</li><li>Проверка проекта на соответствие требованиям</li><li>Бизнес-план, финансовая модель и заявка</li><li>Сопровождение экспертизы до решения фонда</li></ul></details>
-          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">подготовка заявки + от 2 % от суммы финансирования</span></div>
+          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">подготовка заявки + от 2 % от суммы финансирования</span></div>
         </article>
         <article class="cell cell-law" style="--o2:10">
           <span class="cell-kind">Право</span>
           <h3>Земельные споры</h3>
           <p class="cell-desc">Аренда и права на участки</p>
           <details class="includes"><summary><svg width="14" height="14"><use href="#plus"/></svg>Что входит</summary><ul><li>Защита права аренды и льготной ставки</li><li>Оспаривание арендной платы, пени и расторжения</li><li>Споры о границах и правах на участок</li><li>Представительство во всех инстанциях</li></ul></details>
-          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">ведение дела в первой инстанции</span></div>
+          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">ведение дела в первой инстанции</span></div>
         </article>
       </div>
     </div>
@@ -459,12 +513,12 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
           <caption>Стоимость судебной работы по инстанциям</caption>
           <thead><tr><th scope="col">Этап</th><th scope="col" style="text-align:right">Стоимость</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Анализ дела и перспектив<span>Изучаем материалы, оцениваем шансы и риски, предлагаем позицию письменно</span></th><td class="num">от 50 000 ₽<small>засчитывается в ведение дела</small></td></tr>
-            <tr><th scope="row">Первая инстанция<span>Иск или отзыв, доказательства, ходатайства, участие во всех заседаниях</span></th><td class="num">от 250 000 ₽</td></tr>
-            <tr><th scope="row">Апелляция<span>Жалоба или отзыв на неё, участие в заседании</span></th><td class="num">от 150 000 ₽</td></tr>
-            <tr><th scope="row">Кассация<span>Жалоба в окружной или кассационный суд, участие в заседании</span></th><td class="num">от 150 000 ₽</td></tr>
-            <tr><th scope="row">Верховный Суд РФ<span>Жалоба в Судебную коллегию, работа по передаче дела, участие в заседании</span></th><td class="num">от 200 000 ₽</td></tr>
-            <tr><th scope="row">Исполнение решения<span>Исполнительный лист, работа с приставами, банками и регистратором</span></th><td class="num">от 70 000 ₽</td></tr>
+            <tr><th scope="row">Анализ дела и перспектив<span>Изучаем материалы, оцениваем шансы и риски, предлагаем позицию письменно</span></th><td class="num">от 50 000 ₽<small>засчитывается в ведение дела</small></td></tr>
+            <tr><th scope="row">Первая инстанция<span>Иск или отзыв, доказательства, ходатайства, участие во всех заседаниях</span></th><td class="num">от 250 000 ₽</td></tr>
+            <tr><th scope="row">Апелляция<span>Жалоба или отзыв на неё, участие в заседании</span></th><td class="num">от 150 000 ₽</td></tr>
+            <tr><th scope="row">Кассация<span>Жалоба в окружной или кассационный суд, участие в заседании</span></th><td class="num">от 150 000 ₽</td></tr>
+            <tr><th scope="row">Верховный Суд РФ<span>Жалоба в Судебную коллегию, работа по передаче дела, участие в заседании</span></th><td class="num">от 200 000 ₽</td></tr>
+            <tr><th scope="row">Исполнение решения<span>Исполнительный лист, работа с приставами, банками и регистратором</span></th><td class="num">от 70 000 ₽</td></tr>
           </tbody>
         </table>
         <p class="table-note">Если мы вели дело в предыдущей инстанции, следующая стоит дешевле: материалы и позиция уже готовы. Государственная пошлина оплачивается отдельно</p>
@@ -489,7 +543,7 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
             <li><svg width="18" height="18"><use href="#check"/></svg>Структура сделки и договоры</li>
             <li><svg width="18" height="18"><use href="#check"/></svg>Сопровождение до регистрации права</li>
           </ul>
-          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">+ от 1 % от суммы привлечённого финансирования</span></div>
+          <div class="price"><span class="price-main">от 250 000 ₽</span><span class="price-note">+ от 1 % от суммы привлечённого финансирования</span></div>
         </article>
         <article class="package package-accent reveal">
           <span class="cell-kind">Финансирование</span>
@@ -500,7 +554,7 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
             <li><svg width="18" height="18"><use href="#check"/></svg>План, как устранить слабые места</li>
             <li><svg width="18" height="18"><use href="#check"/></svg>Пакет документов и выбор инструмента</li>
           </ul>
-          <div class="price"><span class="price-main">от 200 000 ₽</span><span class="price-note">засчитывается, если дальше привлекаем финансирование вместе</span></div>
+          <div class="price"><span class="price-main">от 200 000 ₽</span><span class="price-note">засчитывается, если дальше привлекаем финансирование вместе</span></div>
         </article>
         <article class="package reveal">
           <span class="cell-kind">Постоянно</span>
@@ -511,7 +565,7 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
             <li><svg width="18" height="18"><use href="#check"/></svg>Оценка новых проектов и источников денег</li>
             <li><svg width="18" height="18"><use href="#check"/></svg>Претензии и досудебные споры</li>
           </ul>
-          <div class="price"><span class="price-main">от 80 000 ₽ в месяц</span><span class="price-note">объём часов закрепляем в договоре</span></div>
+          <div class="price"><span class="price-main">от 80 000 ₽ в месяц</span><span class="price-note">объём часов закрепляем в договоре</span></div>
         </article>
       </div>
     </div>
@@ -525,9 +579,9 @@ details.includes ul { display: grid; gap: 8px; padding: 4px 0 0 18px; font-size:
       </div>
       <div class="consult-grid reveal">
         <div><h3>Первая встреча</h3><p>До часа очно или онлайн: разбираем задачу и предлагаем путь</p><span class="price-main">Бесплатно</span></div>
-        <div><h3>Консультация с документами</h3><p>Изучаем документы заранее и отвечаем на вопросы по ним</p><span class="price-main num">от 15 000 ₽</span></div>
-        <div><h3>Письменное заключение</h3><p>Позиция по вопросу со ссылками на закон и практику</p><span class="price-main num">от 40 000 ₽</span></div>
-        <div><h3>Почасовая работа</h3><p>Для задач, объём которых сложно оценить заранее</p><span class="price-main num">от 10 000 ₽ в час</span></div>
+        <div><h3>Консультация с документами</h3><p>Изучаем документы заранее и отвечаем на вопросы по ним</p><span class="price-main num">от 15 000 ₽</span></div>
+        <div><h3>Письменное заключение</h3><p>Позиция по вопросу со ссылками на закон и практику</p><span class="price-main num">от 40 000 ₽</span></div>
+        <div><h3>Почасовая работа</h3><p>Для задач, объём которых сложно оценить заранее</p><span class="price-main num">от 10 000 ₽ в час</span></div>
       </div>
     </div>
   </section>
