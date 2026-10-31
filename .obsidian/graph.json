@@ -1,12 +1,48 @@
 {
   "collapse-filter": true,
-  "search": "",
+  "search": "-path:\"90 Шаблоны\" -file:\"00 Журнал\" -file:\"00 Индекс\" -file:README -file:/^CLAUDE\\.md$/",
   "showTags": false,
   "showAttachments": false,
-  "hideUnresolved": false,
-  "showOrphans": true,
+  "hideUnresolved": true,
+  "showOrphans": false,
   "collapse-color-groups": true,
-  "colorGroups": [],
+  "colorGroups": [
+    {
+      "query": "file:\"00 Карта\" OR file:\"00 Дорожная карта\"",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "path:\"91 Исходники\"",
+      "color": {
+        "a": 1,
+        "rgb": 11184810
+      }
+    },
+    {
+      "query": "path:\"01 Входящие\" OR path:\"02 Дневник\" OR path:\"12 Встречи\"",
+      "color": {
+        "a": 1,
+        "rgb": 16027848
+      }
+    },
+    {
+      "query": "path:\"03 Люди и компании\" OR path:\"07 Партнёры\"",
+      "color": {
+        "a": 1,
+        "rgb": 6737151
+      }
+    },
+    {
+      "query": "path:/^(0[3-9]|[1-8][0-9]) /",
+      "color": {
+        "a": 1,
+        "rgb": 5968895
+      }
+    }
+  ],
   "collapse-display": true,
   "showArrow": false,
   "textFadeMultiplier": 0,
