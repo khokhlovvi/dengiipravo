@@ -1,6 +1,7 @@
 """Заметка-документ из хранилища -> Word на бланке «Деньги & Право» с логотипом сайта.
 
-Запуск: python make_docx.py <заметка.md> <logo.png> <выход.docx>
+Запуск: python make_docx.py <заметка.md> <dip.png> <выход.docx>  (рядом со скриптом — rapidatech.png)
+Бланк — поле `blank` во frontmatter: dip (по умолчанию) или rapidatech (в подвале — «Деньги & Право» как партнёр).
 Нужен python-docx (есть в ~/automations/dip-bot/.venv на сервере).
 Понимает: # заголовок, абзац сразу под ним (подзаголовок), ## разделы, списки «- »,
 таблицы «|», **жирный**, ==выделение== (жёлтым — места, которые нужно дописать).
@@ -102,27 +103,46 @@ st.paragraph_format.space_after = Pt(6); st.paragraph_format.line_spacing = 1.2
 for name in ("List Bullet",):
     doc.styles[name].font.name = FONT; doc.styles[name].font.size = Pt(11)
 
-# Шапка: знак, название, контакты
+# Бланки: основной бренд в шапке, партнёр (если есть) — мелко в подвале
+HERE = __import__("os").path.dirname(__file__) or "."
+BRANDS = {
+    "dip": dict(mark="dip.png", name="Деньги & Право", italic=False, color=NAVY,
+                tagline="Финансовые инструменты и правовая работа", right=(SITE, PHONE, EMAIL)),
+    "rapidatech": dict(mark="rapidatech.png", name="РапидаТех", italic=True, color=RGBColor(0x0E, 0x2A, 0x5E),
+                       tagline="Научно-инжиниринговая компания · Наука, технологии, производство",
+                       right=("ООО «РапидаТех»", "ИНН 1683028089 · ОГРН 1251600028459", "Республика Татарстан")),
+}
+blank = fm.get("blank", "dip")
+brand = BRANDS[blank]; partner = BRANDS["dip"] if blank != "dip" else None
+img = lambda n: n if n.startswith("/") else __import__("os").path.join(HERE, n)
+
 hdr = sec.header; hp = hdr.paragraphs[0]
 t = hdr.add_table(rows=1, cols=3, width=Mm(170)); borders(t); cell_margins(t, 0, 0, 0, 0)
 t.alignment = WD_TABLE_ALIGNMENT.LEFT
 c0, c1, c2 = t.rows[0].cells
-c0.paragraphs[0].add_run().add_picture(logo, width=Mm(12.5))
+c0.paragraphs[0].add_run().add_picture(img(brand["mark"]) if blank != "dip" else logo, width=Mm(13))
 p = c1.paragraphs[0]; p.paragraph_format.space_after = Pt(0); p.paragraph_format.space_before = Pt(3)
-r = p.add_run("Деньги & Право"); r.bold = True; r.font.size = Pt(17); r.font.color.rgb = NAVY
+r = p.add_run(brand["name"]); r.bold = True; r.italic = brand["italic"]; r.font.size = Pt(17); r.font.color.rgb = brand["color"]
 p = c1.add_paragraph(); p.paragraph_format.space_after = Pt(0)
-r = p.add_run("Финансовые инструменты и правовая работа"); r.font.size = Pt(8.5); r.font.color.rgb = GREY
-for i, line in enumerate((SITE, PHONE, EMAIL)):
+r = p.add_run(brand["tagline"]); r.font.size = Pt(8.5); r.font.color.rgb = GREY
+for i, line in enumerate(brand["right"]):
     p = c2.paragraphs[0] if i == 0 else c2.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; p.paragraph_format.space_after = Pt(0); p.paragraph_format.line_spacing = 1.1
     r = p.add_run(line); r.font.size = Pt(8.5); r.font.color.rgb = GREY
-widths(t, (Mm(16), Mm(94), Mm(60)))
+widths(t, (Mm(17), Mm(93), Mm(60)))
 hdr._element.remove(hp._p)
-line = hdr.add_paragraph(); para_border_bottom(line); line.paragraph_format.space_after = Pt(0)
+line = hdr.add_paragraph(); para_border_bottom(line, color="%02X%02X%02X" % tuple(brand["color"])); line.paragraph_format.space_after = Pt(0)
 line.paragraph_format.line_spacing = Pt(2)
 
-# Подвал: номер страницы
-fp = sec.footer.paragraphs[0]; fp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+# Подвал: партнёр проекта слева, номер страницы справа
+ft = sec.footer; fp0 = ft.paragraphs[0]
+t = ft.add_table(rows=1, cols=2, width=Mm(170)); borders(t); cell_margins(t, 0, 0, 0, 0)
+fa, fb = t.rows[0].cells
+if partner:
+    p = fa.paragraphs[0]
+    p.add_run().add_picture(logo, width=Mm(4.2))
+    r = p.add_run("  Партнёр проекта — «Деньги & Право» · " + SITE); r.font.size = Pt(7.5); r.font.color.rgb = GREY
+fp = fb.paragraphs[0]; fp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 r = fp.add_run(); r.font.size = Pt(8.5); r.font.color.rgb = GREY
 for kind, val in (("begin", None), ("instr", "PAGE"), ("end", None)):
     if kind == "instr":
@@ -130,6 +150,8 @@ for kind, val in (("begin", None), ("instr", "PAGE"), ("end", None)):
     else:
         e = OxmlElement("w:fldChar"); e.set(qn("w:fldCharType"), kind)
     r._r.append(e)
+widths(t, (Mm(140), Mm(30)))
+ft._element.remove(fp0._p)
 
 # Дата, номер и адресат
 d = fm.get("date") or date.today().isoformat()
@@ -196,7 +218,7 @@ while i < len(lines):
     runs(p, s, size=9.5 if s.startswith("Приложение") else None, color=GREY if s.startswith("Приложение") else None)
     i += 1
 
-doc.core_properties.author = "Деньги & Право"
+doc.core_properties.author = brand["name"]
 doc.core_properties.title = re.search(r"^# (.+)$", text, re.M).group(1)
 doc.save(out)
 print("ok", out)
