@@ -196,7 +196,7 @@ while i < len(lines):
         header = rows[0] if any(rows[0]) else None
         body = rows[1:]
         tab = doc.add_table(rows=0, cols=len(rows[0])); borders(tab, LINE); cell_margins(tab)
-        w1 = Mm(46) if not header else Mm(22)
+        w1 = Mm(50) if not header else Mm(22)
         def add(cells, head=False):
             rc = tab.add_row().cells
             for j, c in enumerate(cells):
