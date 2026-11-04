@@ -53,6 +53,18 @@ def cell_margins(table, top=60, bottom=60, left=100, right=100):
     table._tbl.tblPr.append(m)
 
 
+def widths(table, ws):
+    table.autofit = False
+    pr = table._tbl.tblPr
+    lay = OxmlElement("w:tblLayout"); lay.set(qn("w:type"), "fixed"); pr.append(lay)
+    tw = pr.find(qn("w:tblW"))
+    if tw is None: tw = OxmlElement("w:tblW"); pr.append(tw)
+    tw.set(qn("w:type"), "dxa"); tw.set(qn("w:w"), str(int(sum(w for w in ws) / 635)))
+    for i, w in enumerate(ws):
+        table.columns[i].width = w
+        for c in table.columns[i].cells: c.width = w
+
+
 def para_border_bottom(p, color="082E50", sz=8):
     pPr = p._p.get_or_add_pPr(); bdr = OxmlElement("w:pBdr"); bt = OxmlElement("w:bottom")
     bt.set(qn("w:val"), "single"); bt.set(qn("w:sz"), str(sz)); bt.set(qn("w:space"), "6"); bt.set(qn("w:color"), color)
@@ -94,7 +106,6 @@ for name in ("List Bullet",):
 hdr = sec.header; hp = hdr.paragraphs[0]
 t = hdr.add_table(rows=1, cols=3, width=Mm(170)); borders(t); cell_margins(t, 0, 0, 0, 0)
 t.alignment = WD_TABLE_ALIGNMENT.LEFT
-for c, w in zip(t.rows[0].cells, (Mm(15), Mm(85), Mm(70))): c.width = w
 c0, c1, c2 = t.rows[0].cells
 c0.paragraphs[0].add_run().add_picture(logo, width=Mm(12.5))
 p = c1.paragraphs[0]; p.paragraph_format.space_after = Pt(0); p.paragraph_format.space_before = Pt(3)
@@ -105,6 +116,7 @@ for i, line in enumerate((SITE, PHONE, EMAIL)):
     p = c2.paragraphs[0] if i == 0 else c2.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; p.paragraph_format.space_after = Pt(0); p.paragraph_format.line_spacing = 1.1
     r = p.add_run(line); r.font.size = Pt(8.5); r.font.color.rgb = GREY
+widths(t, (Mm(16), Mm(94), Mm(60)))
 hdr._element.remove(hp._p)
 line = hdr.add_paragraph(); para_border_bottom(line); line.paragraph_format.space_after = Pt(0)
 line.paragraph_format.line_spacing = Pt(2)
@@ -124,13 +136,14 @@ d = fm.get("date") or date.today().isoformat()
 y, m, dd = d.split("-")
 num = fm.get("number") or "____"
 t = doc.add_table(rows=1, cols=2); borders(t); cell_margins(t, 0, 0, 0, 0)
-a, b = t.rows[0].cells; a.width, b.width = Mm(85), Mm(85)
+a, b = t.rows[0].cells
 p = a.paragraphs[0]; runs(p, f"{dd}.{m}.{y}  ·  Исх. № {num}", size=9.5, color=GREY)
 to = [s.strip() for s in fm.get("to", "").split(" / ") if s.strip()]
 for i, s in enumerate(to):
     p = b.paragraphs[0] if i == 0 else b.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; p.paragraph_format.space_after = Pt(0)
     runs(p, s, size=10.5, bold=(i == 0))
+widths(t, (Mm(70), Mm(100)))
 doc.add_paragraph().paragraph_format.space_after = Pt(4)
 
 lines = text.splitlines(); i = 0; after_title = False
@@ -161,11 +174,10 @@ while i < len(lines):
         header = rows[0] if any(rows[0]) else None
         body = rows[1:]
         tab = doc.add_table(rows=0, cols=len(rows[0])); borders(tab, LINE); cell_margins(tab)
-        w1 = Mm(42) if not header else Mm(22)
+        w1 = Mm(46) if not header else Mm(22)
         def add(cells, head=False):
             rc = tab.add_row().cells
             for j, c in enumerate(cells):
-                rc[j].width = w1 if j == 0 else Mm(170) - w1
                 p = rc[j].paragraphs[0]; p.paragraph_format.space_after = Pt(0); p.paragraph_format.line_spacing = 1.15
                 if head:
                     set_cell_bg(rc[j], "082E50"); runs(p, c, size=9.5, color=RGBColor(255, 255, 255), bold=True)
@@ -175,6 +187,7 @@ while i < len(lines):
                     runs(p, c, size=10)
         if header: add(header, head=True)
         for r_ in body: add(r_)
+        widths(tab, (w1, Mm(170) - w1))
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
         continue
     p = doc.add_paragraph()
