@@ -135,7 +135,8 @@ svg.loop{width:100%;height:auto;display:block}
 .f-stop strong{display:block;font-size:13px;color:var(--red);margin-bottom:2px;letter-spacing:.02em}
 .f-stop.loopback strong{color:var(--navy)}
 
-.par{display:grid;grid-template-columns:1fr minmax(0,600px) 1fr;width:100%;align-items:start}
+.par{display:grid;grid-template-columns:1fr minmax(0,600px) 1fr;width:100%;align-items:stretch}
+.f-fill{flex:1 1 auto;width:2px;background:var(--line-strong);min-height:0}
 .pc{grid-column:2;display:flex;flex-direction:column;align-items:center}.pc .f-step{width:100%}
 .rail{grid-column:3;margin-left:22px}
 .branch{width:100%}
@@ -193,7 +194,8 @@ svg.loop{width:100%;height:auto;display:block}
 .g-bar.long{background:var(--navy);border-radius:8px 0 0 8px}
 .g-bar.series{background:repeating-linear-gradient(45deg,#082e50 0 8px,#134166 8px 16px)}
 .gantt-in{position:relative;min-width:820px;padding-bottom:96px}
-.g-overlay{position:absolute;left:260px;right:0;top:0;bottom:0;pointer-events:none;z-index:2}
+.g-overlay{position:absolute;left:260px;right:0;top:0;bottom:0;pointer-events:none;z-index:0}
+.g-track{z-index:1}
 .mark{position:absolute;left:calc(100%/11*var(--p));top:34px;bottom:calc(84px - var(--r)*28px);border-left:2px dotted #8a96a3;font-style:normal}
 .mark b{position:absolute;top:100%;left:-2px;margin-top:2px;font-size:12.5px;font-weight:600;white-space:nowrap;color:#3e4a57;background:#fff;padding:2px 8px;border:1px solid var(--line);border-radius:6px}
 .mark.warn{border-left-color:var(--red)}.mark.warn b{color:var(--red);border-color:#ebc6c6}
@@ -242,11 +244,15 @@ footer b{color:#fff}
   .lane{margin-top:12px}
   .f-dec{grid-template-columns:1fr}
   .f-dia{grid-column:1;width:300px;justify-self:center}
-  .f-no{grid-column:1;flex-direction:column;align-items:center;margin:0 0 6px}
-  .f-no .h{flex:0 0 26px;width:2px;height:26px}
-  .f-no .h::after{right:-6px;top:auto;bottom:-2px;border:7px solid transparent;border-top:8px solid #d9a5a5;border-bottom:0}
-  .f-no .h b{left:12px;top:2px}
-  .f-stop{max-width:100%}
+  .f-no{grid-column:1;position:relative;display:block;margin:0;padding:4px 0 4px calc(50% + 16px)}
+  .f-no::before{content:"";position:absolute;left:calc(50% - 1px);top:0;bottom:0;border-left:2px solid var(--line-strong)}
+  .f-no .h{display:none}
+  .f-stop{max-width:none;font-size:14px;padding:10px 12px}
+  .f-stop strong::before{content:"если нет · "}
+  .g-row{grid-template-columns:150px minmax(0,1fr)}
+  .g-label{font-size:13.5px}
+  .gantt-in{min-width:720px}
+  .g-overlay{left:150px}
   .f-step{padding-left:64px}
   .facts,.kpi{grid-template-columns:1fr}
 }
@@ -526,6 +532,7 @@ footer b{color:#fff}
             <h4>Раскладка по трём направлениям</h4>
             <p>Из каждой диагностики — одно предложение, ответ клиенту в течение 48 часов, КП делает бот по прайсу</p>
           </div>
+          <div class="f-fill"></div>
         </div>
         <aside class="rail rv" aria-label="Шаг 7, параллельно">
           <span class="rk">ШАГ 7 · ПАРАЛЛЕЛЬНО</span>
