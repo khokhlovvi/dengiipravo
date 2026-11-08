@@ -153,7 +153,7 @@ function AboutPage({ request, link }) {
         <div className="dot-pattern" aria-hidden="true" />
         <div className="container hero-content">
           <span className="hero-pill"><span className="shiny-text">Финансы и право в Краснодарском крае и СКФО</span></span>
-          <h1>Защищаем активы бизнеса и помогаем им работать</h1>
+          <h1>Капитал под задачи вашего бизнеса</h1>
           <p>Юридическая надёжность и коммерческая выгода в каждом решении для бизнеса Краснодарского края и республик Северного Кавказа</p>
           <div className="hero-actions">
             <ShimmerButton onClick={() => request()}>Обсудить задачу <ArrowRight size={20} /></ShimmerButton>
