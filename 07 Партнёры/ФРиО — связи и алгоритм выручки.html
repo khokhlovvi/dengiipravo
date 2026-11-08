@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="ru" class="js">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if('IntersectionObserver' in window&&location.hash!=='#static')document.documentElement.classList.add('js')</script>
 <title>ФРиО — связи и путь к выручке · Деньги и Право</title>
 <style>
 :root{
@@ -51,7 +52,7 @@ section.alt{background:var(--surface)}
 .mini .b.dip{background:var(--navy);color:#fff;border-color:var(--navy)}
 .mini .b.many{background:var(--navy-tint);border-color:var(--spark)}
 .mini .b.money{background:var(--green-tint);border-color:#b8dbc7}
-.mini .ar{height:30px;position:relative;font-size:13px;color:var(--muted);display:flex;align-items:center;padding-left:calc(50% + 14px)}
+.mini .ar{min-height:34px;position:relative;font-size:13px;line-height:1.35;color:var(--muted);display:flex;align-items:center;padding:6px 0 10px calc(50% + 14px)}
 .mini .ar::before{content:"";position:absolute;left:50%;top:0;bottom:6px;border-left:2px solid var(--line-strong)}
 .mini .ar::after{content:"";position:absolute;left:calc(50% - 5px);bottom:0;border:6px solid transparent;border-top:7px solid var(--line-strong);border-bottom:0}
 .mini .ar.thick::before{border-left:2px dashed var(--focus)}
@@ -687,7 +688,8 @@ footer b{color:#fff}
 
 <script>
 (function(){
-  if(location.hash==='#static'||!('IntersectionObserver' in window)){document.documentElement.classList.remove('js')}
+  function showAll(){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')})}
+  setTimeout(function(){if(!document.querySelector('.rv.in'))showAll()},1500);
   var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12}) : null;
   document.querySelectorAll('.rv').forEach(function(el){io?io.observe(el):el.classList.add('in')});
   window.addEventListener('beforeprint',function(){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')})});
