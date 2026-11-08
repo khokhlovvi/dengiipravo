@@ -443,3 +443,12 @@ html:not(.motion) .principle-note { margin-top: 0 }
   .wordmark { font-size: 17px }
   .header-actions .button-small { display: none }
 }
+
+/* Замечания к тестовой версии: кнопка в правом нижнем углу */
+.feedback-fab { position: fixed; right: 20px; bottom: 20px; z-index: 60; display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px; border: 0; border-radius: 999px; background: #e8590c; color: #fff; font: inherit; font-size: 15px; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(15, 19, 24, .22); cursor: pointer; transition: transform .2s var(--ease), background .2s }
+.feedback-fab:hover { background: #c94d0a; transform: translateY(-1px) }
+.feedback-fab:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px }
+.feedback-actions { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap }
+@media (max-width: 600px) { .feedback-fab { right: 12px; bottom: 12px; padding: 10px 14px; font-size: 14px } }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, X, List, Check, WarningCircle, Phone, EnvelopeSimple, Scales, Bank, Gavel } from '@phosphor-icons/react';
+import { ArrowRight, X, List, Check, WarningCircle, ChatText, Phone, EnvelopeSimple, Scales, Bank, Gavel } from '@phosphor-icons/react';
 import { Marquee, GlowCard, ShimmerButton, TextReveal, FlickeringGrid, Ripple } from './effects.jsx';
 import { site, solutions, experience, regionWork, steps, topics, pages } from './content.js';
 
@@ -344,6 +344,83 @@ function NotFoundPage({ link }) {
   );
 }
 
+// Замечания коллег — только в тестовой версии (/test/): кнопка в углу и короткая форма
+// Уходят в общий чат и в заметку «Замечания к тестовой версии сайта» (POST /api/feedback)
+const team = ['Владимир', 'Яна', 'Инна', 'Адам', 'Михаил'];
+const pageNames = { '/': 'О нас', '/solutions': 'Решения', '/privacy': 'Политика', '/404': 'Страница 404' };
+
+function currentBlock() {
+  const heads = [...document.querySelectorAll('main h1, main h2')];
+  let found = heads[0];
+  for (const h of heads) if (h.getBoundingClientRect().top < window.innerHeight * 0.5) found = h;
+  return found ? found.textContent.trim() : '';
+}
+
+function FeedbackWidget({ path }) {
+  const ref = useRef(null);
+  const [state, setState] = useState('idle');
+  const [block, setBlock] = useState('');
+  const [name, setName] = useState('');
+  useEffect(() => { setName(localStorage.getItem('dip-feedback-name') || ''); }, []);
+  function open() { setBlock(currentBlock()); setState('idle'); ref.current.showModal(); }
+  async function submit(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    localStorage.setItem('dip-feedback-name', data.name);
+    setState('sending');
+    try {
+      const r = await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, page: pageNames[path] || path }) });
+      if (!r.ok) throw new Error(String(r.status));
+      form.querySelector('textarea').value = '';
+      setState('done');
+    } catch { setState('error'); }
+  }
+  const close = () => ref.current.close();
+  return (
+    <>
+      <button type="button" className="feedback-fab" onClick={open}><ChatText size={20} />Замечание к сайту</button>
+      <dialog ref={ref} className="request-dialog" aria-labelledby="feedback-title" onClick={e => { if (e.target === e.currentTarget) close(); }}>
+        <div className="dialog-inner">
+          <button type="button" className="icon-button dialog-close" aria-label="Закрыть" onClick={close}><X size={22} /></button>
+          {state === 'done' ? (
+            <div className="dialog-result" role="status">
+              <span className="result-icon"><Check size={28} weight="bold" /></span>
+              <h2 id="feedback-title">Спасибо, замечание отправлено</h2>
+              <p>Оно уже в общем чате и в списке замечаний к сайту</p>
+              <div className="feedback-actions">
+                <button type="button" className="button" onClick={() => { setBlock(currentBlock()); setState('idle'); }}>Ещё замечание</button>
+                <button type="button" className="text-button" onClick={close}>Закрыть</button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h2 id="feedback-title">Замечание к сайту</h2>
+              <p className="dialog-lead">Тестовая версия для согласования. Напишите, что поправить, — замечание придёт в общий чат</p>
+              <form onSubmit={submit}>
+                <label className="field">Кто пишет
+                  <input name="name" list="feedback-team" required maxLength={60} value={name} onChange={e => setName(e.target.value)} autoComplete="off" />
+                  <datalist id="feedback-team">{team.map(t => <option key={t} value={t} />)}</datalist>
+                </label>
+                <label className="field">Страница и блок<span className="field-hint">подставлены сами, можно поправить</span>
+                  <input name="block" maxLength={120} value={block} onChange={e => setBlock(e.target.value)} />
+                </label>
+                <label className="field">Что поправить<textarea name="text" rows={5} required maxLength={3000} placeholder="Например: в блоке «Наш опыт» лучше написать…" /></label>
+                {state === 'error' && (
+                  <div className="form-error" role="alert"><WarningCircle size={22} /><p>Не получилось отправить — попробуйте ещё раз или напишите в общий чат</p></div>
+                )}
+                <button className="button button-wide" type="submit" disabled={state === 'sending'}>
+                  {state === 'sending' ? <><span className="spinner" aria-hidden="true" />Отправляем</> : <>Отправить замечание <ArrowRight size={20} /></>}
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+      </dialog>
+    </>
+  );
+}
+
 export function App({ url }) {
   const [path, setPath] = useState(() => normalize(url ?? window.location.pathname));
   const [menu, setMenu] = useState(false);
@@ -453,6 +530,7 @@ export function App({ url }) {
       </footer>
 
       <RequestDialog dialogRef={dialogRef} topic={topic} />
+      {BASE && <FeedbackWidget path={path} />}
     </>
   );
 }
