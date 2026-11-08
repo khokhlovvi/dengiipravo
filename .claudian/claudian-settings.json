@@ -197,16 +197,10 @@
             "high",
             "max"
           ]
-        },
-        {
-          "value": "claude-haiku-4-5",
-          "displayName": "Haiku 4.5",
-          "resolvedModel": "claude-haiku-4-5",
-          "description": "Newer version available · select Haiku for Haiku 5.5"
         }
       ],
-      "discoveredModelsAt": 1793880293816,
-      "cliUpdateCheckedAt": 1793738811101,
+      "discoveredModelsAt": 1794123668096,
+      "cliUpdateCheckedAt": 1794123636366,
       "autoCompactWindow": 0,
       "disabledToolPacks": [],
       "toolPackSecrets": {}
