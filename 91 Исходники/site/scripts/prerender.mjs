@@ -9,6 +9,8 @@ const server = path.join(root, 'dist/server/entry-server.js');
 const { render, pages, site } = await import(pathToFileURL(server).href);
 const template = await readFile(path.join(client, 'index.html'), 'utf8');
 
+// Картинка для ссылок: у тестовой версии своя, в её подпапке
+const ogImage = `${site.url}${process.env.SITE_BASE || '/'}og.jpg`;
 const esc = s => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 const org = {
   '@context': 'https://schema.org',
@@ -20,7 +22,7 @@ const org = {
   url: site.url,
   telephone: '+7 926 860-49-29',
   email: site.email,
-  image: `${site.url}/og.jpg`,
+  image: ogImage,
   description: pages['/'].description,
   areaServed: ['Краснодарский край', 'Северо-Кавказский федеральный округ'],
 };
@@ -38,7 +40,7 @@ for (const [route, file] of Object.entries(out)) {
     `<meta property="og:title" content="${esc(title)}" />`,
     `<meta property="og:description" content="${esc(description)}" />`,
     canonical && `<meta property="og:url" content="${canonical}" />`,
-    `<meta property="og:image" content="${site.url}/og.jpg" />`,
+    `<meta property="og:image" content="${ogImage}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
