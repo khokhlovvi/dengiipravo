@@ -22,7 +22,7 @@ const org = {
   email: site.email,
   image: `${site.url}/og.jpg`,
   description: pages['/'].description,
-  areaServed: 'RU',
+  areaServed: ['Краснодарский край', 'Северо-Кавказский федеральный округ'],
 };
 
 const out = { '/': 'index.html', '/solutions': 'solutions/index.html', '/privacy': 'privacy/index.html', '/404': '404.html' };
@@ -31,7 +31,7 @@ for (const [route, file] of Object.entries(out)) {
   const canonical = route === '/404' ? '' : `${site.url}${route === '/' ? '/' : route}`;
   const head = [
     canonical && `<link rel="canonical" href="${canonical}" />`,
-    route === '/404' && '<meta name="robots" content="noindex" />',
+    (route === '/404' || process.env.SITE_BASE) && '<meta name="robots" content="noindex, nofollow" />',
     `<meta property="og:type" content="website" />`,
     `<meta property="og:locale" content="ru_RU" />`,
     `<meta property="og:site_name" content="${esc(site.name)}" />`,

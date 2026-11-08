@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, X, List, Check, WarningCircle, Phone, EnvelopeSimple, Scales, Bank, Gavel } from '@phosphor-icons/react';
 import { Marquee, GlowCard, ShimmerButton, TextReveal, FlickeringGrid, Ripple } from './effects.jsx';
-import { site, solutions, experience, steps, topics, pages } from './content.js';
+import { site, solutions, experience, regionWork, steps, topics, pages } from './content.js';
+
+// Подпапка сборки: '' для сайта в корне, '/test' для тестовой версии
+const BASE = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
 const routes = ['/', '/solutions', '/privacy'];
 
 export function normalize(path) {
-  let p = (path || '/').split(/[?#]/)[0].replace(/\/+$/, '') || '/';
+  let p = (path || '/').split(/[?#]/)[0];
+  if (BASE && (p === BASE || p.startsWith(`${BASE}/`))) p = p.slice(BASE.length);
+  p = p.replace(/\/+$/, '') || '/';
   if (p === '/about') p = '/';
   return routes.includes(p) ? p : '/404';
 }
@@ -19,8 +24,8 @@ const motionOk = () => typeof window !== 'undefined' && !window.matchMedia('(pre
 function Picture({ name, alt = '', className, priority, sizes = '100vw' }) {
   return (
     <picture className={className}>
-      <source type="image/webp" srcSet={`/images/${name}-800.webp 800w, /images/${name}.webp 1600w`} sizes={sizes} />
-      <img src={`/images/${name}.jpg`} alt={alt} decoding="async" loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : undefined} />
+      <source type="image/webp" srcSet={`${BASE}/images/${name}-800.webp 800w, ${BASE}/images/${name}.webp 1600w`} sizes={sizes} />
+      <img src={`${BASE}/images/${name}.jpg`} alt={alt} decoding="async" loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : undefined} />
     </picture>
   );
 }
@@ -108,7 +113,7 @@ function RequestDialog({ dialogRef, topic }) {
               <label className="trap" aria-hidden="true">Сайт<input name="website" tabIndex={-1} autoComplete="off" /></label>
               <label className="consent">
                 <input type="checkbox" name="consent" value="yes" required />
-                <span>Согласен на обработку персональных данных в соответствии с <a href="/privacy" target="_blank" rel="noopener">политикой</a></span>
+                <span>Согласен на обработку персональных данных в соответствии с <a href={`${BASE}/privacy`} target="_blank" rel="noopener">политикой</a></span>
               </label>
               {state === 'error' && (
                 <div className="form-error" role="alert" ref={errorRef}>
@@ -131,14 +136,14 @@ function RequestDialog({ dialogRef, topic }) {
 const tasks = [
   ['finance', 'Финансовая стратегия', 'Формируем финансовую стратегию на основе юридической и коммерческой экспертизы нашей компании: от структурирования актива до сопровождения сделок', 'Обсудить задачу бизнеса', 'Обсуждение задачи'],
   ['law', 'Защита личного капитала', 'Защищаем личный капитал и интересы собственников в вопросах наследства, раздела имущества и признания прав', 'Обсудить защиту капитала', 'Защита личного капитала'],
-  ['finance', 'Финансирование и капитал', 'Помогаем подобрать финансирование, привлечь капитал и подготовить активы к требованиям банков, лизинговых компаний и инвесторов', 'Обсудить финансирование', 'Обсуждение задачи'],
-  ['law', 'Споры и сделки с недвижимостью', 'Помогаем разрешать имущественные и земельные споры, в том числе в Верховном Суде РФ, и готовить сделки с недвижимостью', 'Обсудить спор или сделку', 'Защита владельца недвижимости'],
+  ['finance', 'Финансирование и капитал', 'Помогаем подобрать финансирование, привлечь капитал и подготовить активы, в том числе недвижимость в крае, к требованиям банков, лизинговых компаний и инвесторов', 'Обсудить финансирование', 'Обсуждение задачи'],
+  ['law', 'Споры и сделки с недвижимостью', 'Разрешаем имущественные и земельные споры в Краснодарском крае и на побережье Чёрного моря, вплоть до Верховного Суда РФ, и готовим сделки с недвижимостью', 'Обсудить спор или сделку', 'Защита владельца недвижимости'],
 ];
 
 const expertise = [
   [Scales, 'Деньги и право вместе', 'Команда объединяет финансовую и юридическую экспертизу, поэтому мы смотрим на каждую задачу одновременно с точки зрения денег и права'],
   [Bank, 'Финансовые институты и партнёры', 'Сотрудничаем с финансовыми институтами, среди которых крупнейшие игроки рынка, а специализированные партнёры помогают нам решать нестандартные задачи'],
-  [Gavel, 'Высшие судебные инстанции', 'Судебные специалисты команды имеют опыт успешной работы в высших судебных инстанциях, включая Верховный Суд РФ, и сотрудничают с экспертным сообществом региона и федерального округа'],
+  [Gavel, 'Высшие судебные инстанции', 'Судебные специалисты команды ведут дела в судах Краснодарского края и доводят их до Верховного Суда РФ. Кассационные суды юга России находятся в Краснодаре, поэтому мы представляем клиентов на месте во всех инстанциях'],
 ];
 
 function AboutPage({ request, link }) {
@@ -147,9 +152,9 @@ function AboutPage({ request, link }) {
       <section className="hero">
         <div className="dot-pattern" aria-hidden="true" />
         <div className="container hero-content">
-          <span className="hero-pill"><span className="shiny-text">Финансовые инструменты и правовая работа</span></span>
+          <span className="hero-pill"><span className="shiny-text">Финансы и право в Краснодарском крае и СКФО</span></span>
           <h1>Капитал под задачи вашего бизнеса</h1>
-          <p>Юридическая надёжность и коммерческая выгода в каждом решении</p>
+          <p>Юридическая надёжность и коммерческая выгода в каждом решении для бизнеса Краснодарского края и республик Северного Кавказа</p>
           <div className="hero-actions">
             <ShimmerButton onClick={() => request()}>Обсудить задачу <ArrowRight size={20} /></ShimmerButton>
             {link('/solutions', <>Все решения <ArrowRight size={18} /></>, 'text-link')}
@@ -215,6 +220,20 @@ function AboutPage({ request, link }) {
           )}
         </Board>
       </section>
+
+      <section className="container section region" id="region">
+        <h2 className="reveal">Работаем на месте в Краснодарском крае и СКФО</h2>
+        <p className="region-lead reveal">Знаем местную судебную практику и требования к земле и недвижимости на побережье. Ведём задачи наших клиентов на месте и работаем региональным консультантом для юридических и финансовых компаний из других регионов: берём на себя всё, что нужно сделать в крае, а клиентов с задачами в других регионах передаём партнёрам</p>
+        <div className="region-grid reveal">
+          {regionWork.map(([title, text]) => (
+            <article key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+        <button type="button" className="text-button region-cta reveal" onClick={() => request('Партнёрство и работа в регионе')}>Обсудить сотрудничество <ArrowRight size={18} /></button>
+      </section>
     </>
   );
 }
@@ -226,7 +245,7 @@ function SolutionsPage({ request }) {
         <div className="dot-pattern" aria-hidden="true" />
         <div className="container">
           <h1 className="page-title">Финансы и право <br className="desktop-break" />под вашу задачу</h1>
-          <p className="page-lead">Смотрим на задачу одновременно с точки зрения денег и права: подбираем финансовый инструмент, проверяем актив и сделку, защищаем интересы в суде. Решение строим от стратегии бизнеса и привлекаем к работе подходящих партнёров — от крупнейших игроков рынка до специализированных компаний для нестандартных случаев</p>
+          <p className="page-lead">Смотрим на задачу одновременно с точки зрения денег и права: подбираем финансовый инструмент, проверяем актив и сделку, защищаем интересы в суде. Решение строим от стратегии бизнеса и привлекаем к работе подходящих партнёров — от крупнейших игроков рынка до специализированных компаний для нестандартных случаев. Работаем с задачами, связанными с Краснодарским краем и республиками СКФО, для клиентов из любого региона России</p>
           <Board items={solutions} className="reveal">
             {({ kind, name, desc, detail }, style) => (
               <BoardCell key={name} kind={kind} style={style} glow>
@@ -355,7 +374,7 @@ export function App({ url }) {
     e.preventDefault();
     const [p, hash] = to.split('#');
     const next = normalize(p);
-    if (next !== path || window.location.hash !== (hash ? `#${hash}` : '')) window.history.pushState({}, '', to);
+    if (next !== path || window.location.hash !== (hash ? `#${hash}` : '')) window.history.pushState({}, '', BASE + to);
     setPath(next);
     setMenu(false);
     requestAnimationFrame(() => {
@@ -364,7 +383,7 @@ export function App({ url }) {
     });
   }
   function request(t = 'Обсуждение задачи') { setTopic(t); setMenu(false); dialogRef.current.showModal(); }
-  const link = (to, label, cls = '', current) => <a className={cls} href={to} aria-current={current ? 'page' : undefined} onClick={e => navigate(e, to)}>{label}</a>;
+  const link = (to, label, cls = '', current) => <a className={cls} href={BASE + to} aria-current={current ? 'page' : undefined} onClick={e => navigate(e, to)}>{label}</a>;
 
   return (
     <>
@@ -397,7 +416,7 @@ export function App({ url }) {
             <div className="container contact-inner">
               <div className="reveal">
                 <h2>Обсудим следующий шаг</h2>
-                <p>Финансовые решения для бизнеса и правовая защита капитала</p>
+                <p>Финансовые решения и правовая защита капитала в Краснодарском крае и СКФО</p>
               </div>
               <div className="contact-actions reveal">
                 <address className="contact-details">
@@ -415,7 +434,7 @@ export function App({ url }) {
         <div className="container footer-inner">
           <div className="footer-brand">
             {link('/', site.name, 'wordmark')}
-            <p>Финансовые инструменты и правовая работа</p>
+            <p>Финансовые инструменты и правовая работа в Краснодарском крае</p>
           </div>
           <nav className="footer-nav" aria-label="Навигация в подвале">
             {link('/', 'О нас')}
