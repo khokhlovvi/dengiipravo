@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class="js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,7 +65,7 @@ section.alt{background:var(--surface)}
 /* карта связей */
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;background:#fff;
   background-image:radial-gradient(#e6ebf0 1px,transparent 1px);background-size:20px 20px}
-svg.map{display:block;width:100%;min-width:760px;height:auto;padding:12px}
+svg.map{display:block;width:100%;min-width:820px;height:auto;padding:12px}
 .edge line{stroke:#082e50;stroke-width:2.2;transition:opacity .3s var(--ease)}
 .edge.net line{stroke:#3d7fbf;stroke-dasharray:7 6}
 .elab{font-size:14px;fill:#3e4a57;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round;transition:opacity .3s var(--ease)}
@@ -135,7 +135,10 @@ svg.loop{width:100%;height:auto;display:block}
 .f-stop strong{display:block;font-size:13px;color:var(--red);margin-bottom:2px;letter-spacing:.02em}
 .f-stop.loopback strong{color:var(--navy)}
 
-.par{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;width:100%;align-items:stretch}
+.par{display:grid;grid-template-columns:1fr minmax(0,600px) 1fr;width:100%;align-items:start}
+.pc{grid-column:2;display:flex;flex-direction:column;align-items:center}.pc .f-step{width:100%}
+.rail{grid-column:3;margin-left:22px}
+.branch{width:100%}
 .branch{position:relative}
 .branch-head{text-align:center;margin-bottom:14px}
 .branch-head .f-step{margin:0 auto;text-align:left}
@@ -157,8 +160,8 @@ svg.loop{width:100%;height:auto;display:block}
 .merge i{position:absolute;left:0;top:-14px;height:14px;border-left:2px solid var(--line-strong)}
 .merge i.r{left:auto;right:0}.merge i.c{left:50%}
 .merge::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px solid var(--line-strong)}
-.rail{border:2px dashed var(--spark);border-radius:16px;padding:20px;background:#fbfdff;display:flex;flex-direction:column}
-.rail .k{font-size:13px;color:var(--focus);font-weight:600;letter-spacing:.04em}
+.rail{align-self:stretch;border:2px dashed var(--spark);border-radius:16px;padding:20px;background:#fbfdff;display:flex;flex-direction:column}
+.rail .rk{font-size:13px;color:var(--focus);font-weight:600;letter-spacing:.04em}
 .rail h4{font-size:18px;margin:6px 0 12px}
 .rail .it{border-top:1px solid var(--line);padding:12px 0}
 .rail .it b{display:block;font-size:15px}.rail .it span{font-size:14px;color:var(--muted)}
@@ -175,7 +178,7 @@ svg.loop{width:100%;height:auto;display:block}
 
 /* календарь */
 .gantt{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;overflow-x:auto}
-.g-row{display:grid;grid-template-columns:260px minmax(560px,1fr);align-items:center;min-height:46px}
+.g-row{display:grid;grid-template-columns:260px minmax(0,1fr);align-items:center;min-height:46px}
 .g-row+.g-row{border-top:1px solid #f0f3f6}
 .g-label{font-size:15px;padding-right:16px}
 .g-track{position:relative;display:grid;grid-template-columns:repeat(11,1fr);height:46px;align-items:center}
@@ -189,10 +192,12 @@ svg.loop{width:100%;height:auto;display:block}
 .g-bar.fast{background:var(--green)}.g-bar.mid{background:#3f6f95}
 .g-bar.long{background:var(--navy);border-radius:8px 0 0 8px}
 .g-bar.series{background:repeating-linear-gradient(45deg,#082e50 0 8px,#134166 8px 16px)}
-.g-marks{border-top:0!important;min-height:58px}
-.mark{position:absolute;left:calc(100%/11*var(--p));top:-330px;bottom:30px;border-left:2px dotted #8a96a3;font-style:normal}
-.mark b{position:absolute;bottom:-30px;left:-6px;font-size:12.5px;font-weight:600;white-space:nowrap;color:#3e4a57;background:#fff;padding:2px 6px;border:1px solid var(--line);border-radius:6px}
+.gantt-in{position:relative;min-width:820px;padding-bottom:96px}
+.g-overlay{position:absolute;left:260px;right:0;top:0;bottom:0;pointer-events:none;z-index:2}
+.mark{position:absolute;left:calc(100%/11*var(--p));top:34px;bottom:calc(84px - var(--r)*28px);border-left:2px dotted #8a96a3;font-style:normal}
+.mark b{position:absolute;top:100%;left:-2px;margin-top:2px;font-size:12.5px;font-weight:600;white-space:nowrap;color:#3e4a57;background:#fff;padding:2px 8px;border:1px solid var(--line);border-radius:6px}
 .mark.warn{border-left-color:var(--red)}.mark.warn b{color:var(--red);border-color:#ebc6c6}
+.g-bar{z-index:3}
 .g-legend{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:16px;font-size:14px;color:var(--muted)}
 .g-legend span{display:inline-flex;align-items:center;gap:8px}
 .g-legend i{width:18px;height:12px;border-radius:3px;display:inline-block}
@@ -218,14 +223,14 @@ svg.loop{width:100%;height:auto;display:block}
 footer{background:var(--navy);color:#bcd3e8;padding:36px 0;font-size:14px}
 footer b{color:#fff}
 
-.rv{opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.rv.in{opacity:1;transform:none}
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
 @media (max-width:900px){
   .vs,.two,.loop-wrap,.qs{grid-template-columns:1fr}
   .facts,.kpi{grid-template-columns:1fr 1fr}
-  .par{grid-template-columns:1fr}
+  .par{grid-template-columns:1fr}.pc,.rail{grid-column:1}.rail{margin:20px 0 0}
   .outs{grid-template-columns:1fr}
   .split3{display:none}
 }
@@ -325,78 +330,78 @@ footer b{color:#fff}
       <p>В центре — «Деньги и Право». Сплошные линии — прямые связи: каждая сделка отдельная, и выручка растёт только вместе с затраченным временем. Пунктир — нелинейные связи через посредника: одно действие приводит многих клиентов.</p>
     </div>
     <div class="scroll rv">
-<svg class="map" viewBox="0 0 1000 620" role="img" aria-labelledby="mapT mapD">
+<svg class="map" viewBox="0 0 1100 620" role="img" aria-labelledby="mapT mapD">
 <title id="mapT">Карта связей вокруг «Деньги и Право»</title>
 <desc id="mapD">Сплошные линии — прямые связи, пунктир — нелинейные, через посредника</desc>
 <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#082e50"/></marker><marker id="arN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3d7fbf"/></marker></defs>
-<g class="edge line" data-a="FRIO" data-b="DIP"><line x1="500" y1="125" x2="500" y2="256"/>
-<text class="elab" x="500" y="182">
-<tspan x="500" dy="0">соглашение</tspan>
-<tspan x="500" dy="17">взнос и мероприятия</tspan>
+<g class="edge line" data-a="FRIO" data-b="DIP"><line x1="550" y1="125" x2="550" y2="256"/>
+<text class="elab" x="550" y="182">
+<tspan x="550" dy="0">соглашение</tspan>
+<tspan x="550" dy="17">взнос и мероприятия</tspan>
 </text></g>
-<g class="edge net" data-a="FRIO" data-b="MEM"><line x1="626" y1="80" x2="704" y2="80" marker-end="url(#arN)"/>
-<text class="elab" x="665" y="56">
-<tspan x="665" dy="0">одно выступление —</tspan>
-<tspan x="665" dy="17">сотни владельцев</tspan>
+<g class="edge net" data-a="FRIO" data-b="MEM"><line x1="676" y1="80" x2="824" y2="80" marker-end="url(#arN)"/>
+<text class="elab" x="750" y="56">
+<tspan x="750" dy="0">одно выступление —</tspan>
+<tspan x="750" dy="17">сотни владельцев</tspan>
 </text></g>
-<g class="edge line" data-a="MEM" data-b="DIP"><line x1="765" y1="125" x2="577" y2="256" marker-end="url(#ar)"/>
-<text class="elab" x="671" y="182">
-<tspan x="671" dy="0">договор</tspan>
-<tspan x="671" dy="17">и оплата услуги</tspan>
+<g class="edge line" data-a="MEM" data-b="DIP"><line x1="872" y1="125" x2="644" y2="256" marker-end="url(#ar)"/>
+<text class="elab" x="758" y="182">
+<tspan x="758" dy="0">договор</tspan>
+<tspan x="758" dy="17">и оплата услуги</tspan>
 </text></g>
-<g class="edge net" data-a="SUP" data-b="MEM"><line x1="830" y1="265" x2="830" y2="125" marker-end="url(#arN)"/>
-<text class="elab" x="830" y="187">
-<tspan x="830" dy="0">продают</tspan>
-<tspan x="830" dy="17">оборудование</tspan>
+<g class="edge net" data-a="SUP" data-b="MEM"><line x1="950" y1="265" x2="950" y2="125" marker-end="url(#arN)"/>
+<text class="elab" x="950" y="187">
+<tspan x="950" dy="0">продают</tspan>
+<tspan x="950" dy="17">оборудование</tspan>
 </text></g>
-<g class="edge net" data-a="SUP" data-b="LK"><line x1="830" y1="355" x2="830" y2="495" marker-end="url(#arN)"/>
-<text class="elab" x="830" y="417">
-<tspan x="830" dy="0">лизинг</tspan>
-<tspan x="830" dy="17">в момент продажи</tspan>
+<g class="edge net" data-a="SUP" data-b="LK"><line x1="950" y1="355" x2="950" y2="495" marker-end="url(#arN)"/>
+<text class="elab" x="950" y="417">
+<tspan x="950" dy="0">лизинг</tspan>
+<tspan x="950" dy="17">в момент продажи</tspan>
 </text></g>
-<g class="edge line" data-a="LK" data-b="DIP"><line x1="765" y1="495" x2="577" y2="364" marker-end="url(#ar)"/>
-<text class="elab" x="671" y="422">
-<tspan x="671" dy="0">вознаграждение</tspan>
-<tspan x="671" dy="17">агенту</tspan>
+<g class="edge line" data-a="LK" data-b="DIP"><line x1="872" y1="495" x2="644" y2="364" marker-end="url(#ar)"/>
+<text class="elab" x="758" y="422">
+<tspan x="758" dy="0">вознаграждение</tspan>
+<tspan x="758" dy="17">агенту</tspan>
 </text></g>
-<g class="edge net" data-a="BRK" data-b="DIP"><line x1="500" y1="495" x2="500" y2="364"/>
-<text class="elab" x="500" y="422">
-<tspan x="500" dy="0">проверка объекта</tspan>
-<tspan x="500" dy="17">до сделки</tspan>
+<g class="edge net" data-a="BRK" data-b="DIP"><line x1="550" y1="495" x2="550" y2="364"/>
+<text class="elab" x="550" y="422">
+<tspan x="550" dy="0">проверка объекта</tspan>
+<tspan x="550" dy="17">до сделки</tspan>
 </text></g>
-<g class="edge line" data-a="BC" data-b="DIP"><line x1="296" y1="310" x2="360" y2="310"/>
-<text class="elab" x="328" y="286">
-<tspan x="328" dy="0">передаём друг другу</tspan>
-<tspan x="328" dy="17">клиентов</tspan>
+<g class="edge line" data-a="BC" data-b="DIP"><line x1="276" y1="310" x2="410" y2="310"/>
+<text class="elab" x="343" y="286">
+<tspan x="343" dy="0">передаём друг другу</tspan>
+<tspan x="343" dy="17">клиентов</tspan>
 </text></g>
-<g class="edge net" data-a="NET" data-b="BC"><line x1="170" y1="495" x2="170" y2="355" marker-end="url(#arN)"/>
-<text class="elab" x="170" y="417">
-<tspan x="170" dy="0">головной офис</tspan>
-<tspan x="170" dy="17">в Москве</tspan>
+<g class="edge net" data-a="NET" data-b="BC"><line x1="150" y1="495" x2="150" y2="355" marker-end="url(#arN)"/>
+<text class="elab" x="150" y="417">
+<tspan x="150" dy="0">головной офис</tspan>
+<tspan x="150" dy="17">в Москве</tspan>
 </text></g>
-<g class="edge net" data-a="FRIO" data-b="WG"><line x1="374" y1="80" x2="296" y2="80" marker-end="url(#arN)"/>
-<text class="elab" x="335" y="56">
-<tspan x="335" dy="0">повестка</tspan>
-<tspan x="335" dy="17">из серии дел</tspan>
+<g class="edge net" data-a="FRIO" data-b="WG"><line x1="424" y1="80" x2="276" y2="80" marker-end="url(#arN)"/>
+<text class="elab" x="350" y="56">
+<tspan x="350" dy="0">повестка</tspan>
+<tspan x="350" dy="17">из серии дел</tspan>
 </text></g>
-<g class="node other" data-id="WG" tabindex="0"><rect x="52" y="43" width="236" height="74" rx="12"/><text x="170" y="76" class="nt">Советы и рабочие группы</text><text x="170" y="98" class="ns">при органах власти</text>
+<g class="node other" data-id="WG" tabindex="0"><rect x="32" y="43" width="236" height="74" rx="12"/><text x="150" y="76" class="nt">Советы и рабочие группы</text><text x="150" y="98" class="ns">при органах власти</text>
 </g>
-<g class="node frio" data-id="FRIO" tabindex="0"><rect x="382" y="43" width="236" height="74" rx="12"/><text x="500" y="76" class="nt">ФРиО</text><text x="500" y="98" class="ns">ассоциация, 6000 членов</text>
-<g class="risk"><circle cx="612.0" cy="49.0" r="13"/><text x="612.0" y="54.0">!</text><title>Риск: репутация и политика ассоциации, юрлицо не проверено по ЕГРЮЛ</title></g>
+<g class="node frio" data-id="FRIO" tabindex="0"><rect x="432" y="43" width="236" height="74" rx="12"/><text x="550" y="76" class="nt">ФРиО</text><text x="550" y="98" class="ns">ассоциация, 6000 членов</text>
+<g class="risk"><circle cx="438.0" cy="49.0" r="13"/><text x="438.0" y="54.0">!</text><title>Риск: репутация и политика ассоциации, юрлицо не проверено по ЕГРЮЛ</title></g>
 </g>
-<g class="node client" data-id="MEM" tabindex="0"><rect x="712" y="43" width="236" height="74" rx="12"/><text x="830" y="76" class="nt">Члены ФРиО на юге</text><text x="830" y="98" class="ns">гостиницы и рестораны</text>
+<g class="node client" data-id="MEM" tabindex="0"><rect x="832" y="43" width="236" height="74" rx="12"/><text x="950" y="76" class="nt">Члены ФРиО на юге</text><text x="950" y="98" class="ns">гостиницы и рестораны</text>
 </g>
-<g class="node other" data-id="BC" tabindex="0"><rect x="52" y="273" width="236" height="74" rx="12"/><text x="170" y="306" class="nt">Better Chance</text><text x="170" y="328" class="ns">юрфирма, Москва</text>
+<g class="node other" data-id="BC" tabindex="0"><rect x="32" y="273" width="236" height="74" rx="12"/><text x="150" y="306" class="nt">Better Chance</text><text x="150" y="328" class="ns">юрфирма, Москва</text>
 </g>
-<g class="node dip" data-id="DIP" tabindex="0"><rect x="368" y="264" width="264" height="92" rx="12"/><text x="500" y="306" class="nt">Деньги и Право</text><text x="500" y="328" class="ns">право и финансирование</text>
+<g class="node dip" data-id="DIP" tabindex="0"><rect x="418" y="264" width="264" height="92" rx="12"/><text x="550" y="306" class="nt">Деньги и Право</text><text x="550" y="328" class="ns">право и финансирование</text>
 </g>
-<g class="node other" data-id="SUP" tabindex="0"><rect x="712" y="273" width="236" height="74" rx="12"/><text x="830" y="306" class="nt">Поставщики HoReCa</text><text x="830" y="328" class="ns">ассоциированные члены</text>
+<g class="node other" data-id="SUP" tabindex="0"><rect x="832" y="273" width="236" height="74" rx="12"/><text x="950" y="306" class="nt">Поставщики HoReCa</text><text x="950" y="328" class="ns">ассоциированные члены</text>
 </g>
-<g class="node client" data-id="NET" tabindex="0"><rect x="52" y="503" width="236" height="74" rx="12"/><text x="170" y="536" class="nt">Федеральные сети</text><text x="170" y="558" class="ns">с объектами на юге</text>
+<g class="node client" data-id="NET" tabindex="0"><rect x="32" y="503" width="236" height="74" rx="12"/><text x="150" y="536" class="nt">Федеральные сети</text><text x="150" y="558" class="ns">с объектами на юге</text>
 </g>
-<g class="node other" data-id="BRK" tabindex="0"><rect x="382" y="503" width="236" height="74" rx="12"/><text x="500" y="536" class="nt">Брокеры</text><text x="500" y="558" class="ns">коммерческой недвижимости</text>
+<g class="node other" data-id="BRK" tabindex="0"><rect x="432" y="503" width="236" height="74" rx="12"/><text x="550" y="536" class="nt">Брокеры</text><text x="550" y="558" class="ns">коммерческой недвижимости</text>
 </g>
-<g class="node money" data-id="LK" tabindex="0"><rect x="712" y="503" width="236" height="74" rx="12"/><text x="830" y="536" class="nt">Лизинговые компании</text><text x="830" y="558" class="ns">и банки</text>
+<g class="node money" data-id="LK" tabindex="0"><rect x="832" y="503" width="236" height="74" rx="12"/><text x="950" y="536" class="nt">Лизинговые компании</text><text x="950" y="558" class="ns">и банки</text>
 </g>
 </svg>
     </div>
@@ -437,21 +442,21 @@ footer b{color:#fff}
       <p>Нелинейная выручка — это петля, которая раскручивается сама. Каждый оборот обходится нам дешевле предыдущего.</p>
     </div>
     <div class="loop-wrap">
-      <div class="rv"><svg class="loop" viewBox="0 0 680 580" role="img" aria-labelledby="loopT"><title id="loopT">Петля роста: дело, разбор, заявки, новые дела, сводка, вес ФРиО</title>
+      <div class="rv"><svg class="loop" viewBox="0 0 700 580" role="img" aria-labelledby="loopT"><title id="loopT">Петля роста: дело, разбор, заявки, новые дела, сводка, вес ФРиО</title>
 <defs><marker id="arL" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3d7fbf"/></marker></defs>
-<path class="arc" d="M410.0 86.7 A215 215 0 0 1 481.1 127.7" marker-end="url(#arL)"/>
-<path class="arc" d="M551.0 249.0 A215 215 0 0 1 551.0 331.0" marker-end="url(#arL)"/>
-<path class="arc" d="M481.1 452.3 A215 215 0 0 1 410.0 493.3" marker-end="url(#arL)"/>
-<path class="arc" d="M270.0 493.3 A215 215 0 0 1 198.9 452.3" marker-end="url(#arL)"/>
-<path class="arc" d="M129.0 331.0 A215 215 0 0 1 129.0 249.0" marker-end="url(#arL)"/>
-<path class="arc" d="M198.9 127.7 A215 215 0 0 1 270.0 86.7" marker-end="url(#arL)"/>
-<g class="lnode"><rect x="235" y="43" width="210" height="64" rx="12"/><text x="340" y="71" class="nt">Дело</text><text x="340" y="92" class="ns">выиграли для одного</text><circle cx="235" cy="43" r="13" class="num"/><text x="235" y="48" class="numt">1</text></g>
-<g class="lnode"><rect x="421" y="150" width="210" height="64" rx="12"/><text x="526" y="178" class="nt">Разбор для членов</text><text x="526" y="200" class="ns">обезличенно, без сумм</text><circle cx="421" cy="150" r="13" class="num"/><text x="421" y="156" class="numt">2</text></g>
-<g class="lnode"><rect x="421" y="366" width="210" height="64" rx="12"/><text x="526" y="394" class="nt">Заявки на диагностику</text><text x="526" y="414" class="ns">вебинар и рассылка ФРиО</text><circle cx="421" cy="366" r="13" class="num"/><text x="421" y="370" class="numt">3</text></g>
-<g class="lnode"><rect x="235" y="473" width="210" height="64" rx="12"/><text x="340" y="501" class="nt">Новые дела</text><text x="340" y="522" class="ns">та же проблема</text><circle cx="235" cy="473" r="13" class="num"/><text x="235" y="478" class="numt">4</text></g>
-<g class="lnode"><rect x="49" y="366" width="210" height="64" rx="12"/><text x="154" y="394" class="nt">Сводка для рабочих групп</text><text x="154" y="414" class="ns">повестка ФРиО</text><circle cx="49" cy="366" r="13" class="num"/><text x="49" y="370" class="numt">5</text></g>
-<g class="lnode"><rect x="49" y="150" width="210" height="64" rx="12"/><text x="154" y="178" class="nt">Вес ФРиО в отрасли</text><text x="154" y="199" class="ns">новые члены и заявки</text><circle cx="49" cy="150" r="13" class="num"/><text x="49" y="155" class="numt">6</text></g>
-<text x="340" y="284" class="lc">Петля роста</text><text x="340" y="310" class="ls">один регион, один сегмент</text>
+<path class="arc" d="M421.6 82.0 A220 220 0 0 1 494.3 124.0" marker-end="url(#arL)"/>
+<path class="arc" d="M566.0 248.0 A220 220 0 0 1 566.0 332.0" marker-end="url(#arL)"/>
+<path class="arc" d="M494.3 456.0 A220 220 0 0 1 421.6 498.0" marker-end="url(#arL)"/>
+<path class="arc" d="M278.4 498.0 A220 220 0 0 1 205.7 456.0" marker-end="url(#arL)"/>
+<path class="arc" d="M134.0 332.0 A220 220 0 0 1 134.0 248.0" marker-end="url(#arL)"/>
+<path class="arc" d="M205.7 124.0 A220 220 0 0 1 278.4 82.0" marker-end="url(#arL)"/>
+<g class="lnode"><rect x="232" y="38" width="236" height="64" rx="12"/><text x="350" y="66" class="nt">Дело</text><text x="350" y="87" class="ns">выиграли для одного</text><circle cx="232" cy="38" r="13" class="num"/><text x="232" y="43" class="numt">1</text></g>
+<g class="lnode"><rect x="423" y="148" width="236" height="64" rx="12"/><text x="541" y="176" class="nt">Разбор для членов</text><text x="541" y="197" class="ns">обезличенно, без сумм</text><circle cx="423" cy="148" r="13" class="num"/><text x="423" y="153" class="numt">2</text></g>
+<g class="lnode"><rect x="423" y="368" width="236" height="64" rx="12"/><text x="541" y="396" class="nt">Заявки на диагностику</text><text x="541" y="417" class="ns">вебинар и рассылка ФРиО</text><circle cx="423" cy="368" r="13" class="num"/><text x="423" y="373" class="numt">3</text></g>
+<g class="lnode"><rect x="232" y="478" width="236" height="64" rx="12"/><text x="350" y="506" class="nt">Новые дела</text><text x="350" y="527" class="ns">та же проблема</text><circle cx="232" cy="478" r="13" class="num"/><text x="232" y="483" class="numt">4</text></g>
+<g class="lnode"><rect x="41" y="368" width="236" height="64" rx="12"/><text x="159" y="396" class="nt">Сводка для рабочих групп</text><text x="159" y="417" class="ns">повестка ФРиО</text><circle cx="41" cy="368" r="13" class="num"/><text x="41" y="373" class="numt">5</text></g>
+<g class="lnode"><rect x="41" y="148" width="236" height="64" rx="12"/><text x="159" y="176" class="nt">Вес ФРиО в отрасли</text><text x="159" y="197" class="ns">новые члены и заявки</text><circle cx="41" cy="148" r="13" class="num"/><text x="41" y="153" class="numt">6</text></g>
+<text x="350" y="284" class="lc">Петля роста</text><text x="350" y="310" class="ls">один регион, один сегмент</text>
 </svg></div>
       <div class="loop-text rv">
         <p>Первое дело для пансионата мы ведём с нуля. Второе дело с тем же ответчиком и тем же вопросом опирается на готовую позицию, десятое — почти шаблон. Цена для клиента остаётся по прайсу или пакетной, а наша себестоимость падает.</p>
@@ -509,19 +514,28 @@ footer b{color:#fff}
       <div class="f-ar"><span>да</span></div>
 
       <div class="par">
-        <div class="branch">
-          <div class="branch-head rv">
-            <div class="f-step" data-n="4">
+        <div class="pc">
+          <div class="rv"><div class="f-step" data-n="4">
               <h4>Диагностика перед сезоном</h4>
               <p>Анкета, выписка ЕГРН, договор аренды земли → одна страница: слева риски объекта, справа деньги, на которые можно претендовать</p>
               <span class="f-meta">декабрь — февраль · 2–3 часа на объект</span>
             </div>
           </div>
-          <div class="f-ar" style="height:24px"></div>
-          <div class="f-step rv" data-n="5" style="margin:0 auto">
+          <div class="f-ar"></div>
+          <div class="f-step rv" data-n="5">
             <h4>Раскладка по трём направлениям</h4>
             <p>Из каждой диагностики — одно предложение, ответ клиенту в течение 48 часов, КП делает бот по прайсу</p>
           </div>
+        </div>
+        <aside class="rail rv" aria-label="Шаг 7, параллельно">
+          <span class="rk">ШАГ 7 · ПАРАЛЛЕЛЬНО</span>
+          <h4>Второй круг связей</h4>
+          <div class="it"><b>Поставщики + лизинговые компании</b><span>2–3 поставщика из каталога ФРиО: лизинг в момент продажи</span></div>
+          <div class="it"><b>Брокеры</b><span>Продают гостиницы и рестораны на юге, мы проверяем объект до сделки</span></div>
+          <div class="it"><b>Better Chance</b><span>Федеральные сети с объектами на юге — в пилотный проект из письма</span></div>
+        </aside>
+      </div>
+      <div class="branch">
           <div class="split"></div>
           <div class="lanes">
             <div class="lane fast rv">
@@ -544,15 +558,8 @@ footer b{color:#fff}
             </div>
           </div>
           <div class="merge"><i></i><i class="c"></i><i class="r"></i></div>
-        </div>
-        <aside class="rail rv" aria-label="Шаг 7, параллельно">
-          <span class="k">ШАГ 7 · ПАРАЛЛЕЛЬНО</span>
-          <h4>Второй круг связей</h4>
-          <div class="it"><b>Поставщики + лизинговые компании</b><span>2–3 поставщика из каталога ФРиО: лизинг в момент продажи</span></div>
-          <div class="it"><b>Брокеры</b><span>Продают гостиницы и рестораны на юге, мы проверяем объект до сделки</span></div>
-          <div class="it"><b>Better Chance</b><span>Федеральные сети с объектами на юге — в пилотный проект из письма</span></div>
-        </aside>
       </div>
+      <div class="f-ar"></div>
 
       <div class="f-dec rv">
         <div class="f-dia"><svg viewBox="0 0 320 160" preserveAspectRatio="none" aria-hidden="true"><polygon points="160,3 317,80 160,157 3,80"/></svg><span>Три и больше клиентов с одной проблемой</span></div>
@@ -590,7 +597,7 @@ footer b{color:#fff}
       <p>Подготовка к сезону занимает время с ноября по март, поэтому первые деньги дают лизинг и финансирование. Суды начинаются позже и приносят самый крупный чек, но выручка по ним растягивается на годы.</p>
     </div>
     <div class="rv">
-<div class="gantt" role="table" aria-label="Когда приходят деньги по месяцам">
+<div class="gantt"><div class="gantt-in" role="table" aria-label="Когда приходят деньги по месяцам">
 <div class="g-row g-head" role="row"><div class="g-label" role="columnheader"></div><div class="g-track">
 <span class="g-m">ноя 2026</span>
 <span class="g-m">дек</span>
@@ -611,8 +618,8 @@ footer b{color:#fff}
 <div class="g-row" role="row"><div class="g-label" role="cell">Проверка объекта, оформление прав</div><div class="g-track" role="cell"><div class="g-season"></div><div class="g-bar mid" style="--s:2;--e:6"><span>2–6 недель на проект</span></div></div></div>
 <div class="g-row" role="row"><div class="g-label" role="cell">Споры: снос, прокуратура, аренда</div><div class="g-track" role="cell"><div class="g-season"></div><div class="g-bar long" style="--s:4;--e:11"><span>6–24 месяца, уходит в 2028</span></div></div></div>
 <div class="g-row" role="row"><div class="g-label" role="cell">Серия дел</div><div class="g-track" role="cell"><div class="g-season"></div><div class="g-bar series" style="--s:5;--e:11"><span>с весны 2027</span></div></div></div>
-<div class="g-row g-marks"><div class="g-label"></div><div class="g-track"><i class="mark" style="--p:3.5"><b>итоги, середина февраля</b></i><i class="mark warn" style="--p:5"><b>после апреля окно закрывается</b></i><i class="mark" style="--p:7.2"><b>Gastreet, Сочи</b></i></div></div>
-</div>
+<div class="g-overlay" aria-hidden="true"><i class="mark" style="--p:3.5;--r:0"><b>итоги, середина февраля</b></i><i class="mark warn" style="--p:5.5;--r:1"><b>к середине апреля окно финансирования закрывается</b></i><i class="mark" style="--p:7.25;--r:2"><b>Gastreet, Сочи, июнь</b></i></div>
+</div></div>
     </div>
     <div class="g-legend">
       <span><i style="background:#7d8a98"></i>подготовка</span>
@@ -673,6 +680,7 @@ footer b{color:#fff}
 
 <script>
 (function(){
+  if(location.hash==='#static'||!('IntersectionObserver' in window)){document.documentElement.classList.remove('js')}
   var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12}) : null;
   document.querySelectorAll('.rv').forEach(function(el){io?io.observe(el):el.classList.add('in')});
   window.addEventListener('beforeprint',function(){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')})});
