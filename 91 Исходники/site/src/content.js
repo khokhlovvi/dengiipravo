@@ -4,8 +4,8 @@
 export const site = {
   name: 'Деньги & Право',
   url: 'https://dengiipravo.ru',
-  phone: '8 (926) 860-49-29',
-  phoneHref: 'tel:+79268604929',
+  phone: '8 (918) 335-08-38',
+  phoneHref: 'tel:+79183350838',
   email: 'dengi_i_pravo@mail.ru',
   // Реквизиты — карточка Альфа-Банка от Владимира 12.10.2026, ОГРН — по checko.ru (сверить с выпиской ЕГРЮЛ)
   legal: {

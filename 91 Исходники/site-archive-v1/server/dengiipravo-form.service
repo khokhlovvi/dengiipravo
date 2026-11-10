@@ -1,0 +1,12 @@
+[Unit]
+Description=Заявки с сайта dengiipravo.ru
+After=network-online.target
+
+[Service]
+WorkingDirectory=%h/automations/dengiipravo-site
+ExecStart=/usr/bin/python3 %h/automations/dengiipravo-site/handler.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

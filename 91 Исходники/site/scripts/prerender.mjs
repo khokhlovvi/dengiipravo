@@ -20,7 +20,7 @@ const org = {
   taxID: site.legal.inn,
   address: { '@type': 'PostalAddress', addressLocality: 'Москва', addressCountry: 'RU' },
   url: site.url,
-  telephone: '+7 926 860-49-29',
+  telephone: '+7 918 335-08-38',
   email: site.email,
   image: ogImage,
   description: pages['/'].description,
