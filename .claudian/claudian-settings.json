@@ -249,9 +249,9 @@
       "visibleModels": null
     },
     "opencode": {
-      "cliPath": "",
+      "cliPath": "/Users/admin/.opencode/bin/opencode",
       "cliPathsByHost": {},
-      "enabled": false,
+      "enabled": true,
       "environmentHash": "",
       "environmentVariables": "",
       "modelAliases": {},
