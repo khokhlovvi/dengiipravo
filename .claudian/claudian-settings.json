@@ -78,7 +78,7 @@
           ]
         },
         {
-          "value": "claude-fable-5-2",
+          "value": "fable",
           "displayName": "Fable 5.2",
           "resolvedModel": "claude-fable-5-2",
           "description": "For your toughest challenges",
@@ -104,7 +104,7 @@
           ]
         },
         {
-          "value": "fable",
+          "value": "claude-fable-5-1",
           "displayName": "Fable 5.1",
           "resolvedModel": "claude-fable-5-1",
           "description": "Most capable for your hardest and longest-running tasks",
@@ -212,8 +212,8 @@
           ]
         }
       ],
-      "discoveredModelsAt": 1794377003644,
-      "cliUpdateCheckedAt": 1794230294283,
+      "discoveredModelsAt": 1794380733750,
+      "cliUpdateCheckedAt": 1794380661328,
       "autoCompactWindow": 0,
       "disabledToolPacks": [],
       "toolPackSecrets": {}
@@ -252,7 +252,7 @@
       "cliPath": "/Users/admin/.opencode/bin/opencode",
       "cliPathsByHost": {},
       "enabled": true,
-      "environmentHash": "",
+      "environmentHash": "runtime-input:v1:fcaf64e13751932a475e22027b0d314fa2c73259fa74e2bf7e9ee1a6ee965c9e",
       "environmentVariables": "",
       "modelAliases": {},
       "preferredThinkingByModel": {},
@@ -279,15 +279,20 @@
     "model": "opus"
   },
   "savedProviderModel": {
-    "claude": "opus"
+    "claude": "opus",
+    "opencode": "opus"
   },
   "savedProviderEffort": {
-    "claude": "max"
+    "claude": "max",
+    "opencode": "default"
   },
   "savedProviderServiceTier": {},
-  "savedProviderThinkingBudget": {},
+  "savedProviderThinkingBudget": {
+    "opencode": "default"
+  },
   "savedProviderPermissionMode": {
-    "claude": "bypassPermissions"
+    "claude": "bypassPermissions",
+    "opencode": "normal"
   },
   "pendingProviderSessionInvalidations": {},
   "lastCustomModel": "",
