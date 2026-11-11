@@ -1,0 +1,41 @@
+Текстовая копия файла «2026-11-11 Партнеры ЛК (1).xlsx» (Excel: 1 лист, 36 строк). Сделал бот базы знаний 11.11.2026, чтобы файл можно было читать и искать. Оригинал лежит рядом.
+
+## Лист «Партнеры ЛК»: 36 строк, столбцы A–I
+| № | A | B | C | D | E | F | G | H | I |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Лизинговая компания | Ссылка на сайт ЛК | ФИО и контакты сотрудника ЛК | Дата последнего контакта | Всего сделок (шт) | Всего сделок (млн ₽) | Портрет клиента | Портрет актива | АВ, % |
+| 2 | Азия Корпорейшин | https://asiacorporation.ru/agentam/agentam.php |  |  |  |  |  |  | 3% |
+| 3 | АК Барс Лизинг | https://www.akbars-leasing.ru/ |  |  |  |  |  |  | 2% |
+| 4 | А-Лизинг | https://a-leasing.ru/ |  |  |  |  |  |  | 3% |
+| 5 | АТБ Лизинг | https://atblk.ru/ |  |  |  |  |  |  | 4% |
+| 6 | Бизнес альянс | https://www.lcba.ru/ |  |  |  |  |  |  | 1.5% |
+| 7 | ВелКор | https://velcor.ru/programs/ |  |  |  |  |  |  | 2% |
+| 8 | Восток-Лизинг | https://www.v-leasing.ru/company/partners/ |  |  |  |  |  |  | 1% |
+| 9 | Дельта Лизинг | https://deltaleasing.ru/promotions/ |  |  |  |  |  |  | 3% |
+| 10 | ДиректЛизинг | https://d-leasing.ru/partners/ |  |  |  |  |  |  | 2% |
+| 11 | Дойче финанс Восток | https://dfvostok.ru/ |  |  |  |  |  |  | 2% |
+| 12 | Интерлизинг | https://www.ileasing.ru/ |  |  |  |  |  |  | 4% |
+| 13 | ИФЛ Лизинг | https://ifl-leasing.ru/partners/ |  |  |  |  |  |  | 2% |
+| 14 | Лизинг-Трейд | https://leasing-trade.ru/ |  |  |  |  |  |  | 2% |
+| 15 | ЛИКОНС | https://likons.ru/ |  |  |  |  |  |  | 5% |
+| 16 | МИК | https://mik-lizing.ru/ |  |  |  |  |  |  | 3% |
+| 17 | МСБ Лизинг | https://www.msb-leasing.ru/agent/about/7 |  |  |  |  |  |  | 4% |
+| 18 | Пионер Лизинг | https://pioneer-leasing.ru/ |  |  |  |  |  |  | 2% |
+| 19 | Премьер Лизинг | https://premier-leasing.ru/ |  |  |  |  |  |  | 5% |
+| 20 | ПроДвижение | https://promotion-lc.ru/ |  |  |  |  |  |  | 3% |
+| 21 | Пруссия | https://lcprussia.ru/ |  |  |  |  |  |  | 2.5% |
+| 22 | ПУБ | https://leasing.pervbank.ru/ |  |  |  |  |  |  | 3% |
+| 23 | Р-Лизинг | https://rekord-leasing.ru/referral |  |  |  |  |  |  | 4% |
+| 24 | Роделен | https://www.rodelen.ru/agentam/ |  |  |  |  |  |  | 2% |
+| 25 | Росбанк / РБ Лизинг | https://www.rosbank-leasing.ru/ |  |  |  |  |  |  | 3% |
+| 26 | СЗЛК | https://szlk.ru/ |  |  |  |  |  |  | 3% |
+| 27 | Стоун XXI | https://www.stone-xxi.ru/about/partners/ |  |  |  |  |  |  | 3% |
+| 28 | ТАЛК Лизинг | https://www.talkleasing.ru/ |  |  |  |  |  |  | 3% |
+| 29 | Технолизинг | https://techleasing.ru/ |  |  |  |  |  |  | 4% |
+| 30 | Транслизинг | https://transleasing.ru/partners/ |  |  |  |  |  |  | 2% |
+| 31 | УралБизнесЛизинг | https://urbl.ru/ |  |  |  |  |  |  | 2% |
+| 32 | Уралпромлизинг | https://upl-74.ru/partnerships/assotsiatsii-i-infrastruktura/ |  |  |  |  |  |  | 1.5% |
+| 33 | Флит Автолизинг | https://fleetautolease.ru/ |  |  |  |  |  |  | 4% |
+| 34 | Центр-инвест | https://www.centrinvest.ru/ |  |  |  |  |  |  | 2.5% |
+| 35 | ЧелИндЛизинг | https://www.chelindleasing.ru/ |  |  |  |  |  |  | 2% |
+| 36 | Эконом Лизинг | https://economleasing.ru/ |  |  |  |  |  |  | 2% |
