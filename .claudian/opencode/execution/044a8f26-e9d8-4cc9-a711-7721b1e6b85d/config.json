@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "build": {
+      "prompt": "{file:/Users/admin/Obsidian/Деньги и право/.claudian/opencode/execution/044a8f26-e9d8-4cc9-a711-7721b1e6b85d/system.md}"
+    },
+    "claudian-yolo": {
+      "mode": "primary",
+      "permission": {
+        "plan_enter": "deny",
+        "question": "allow"
+      },
+      "prompt": "{file:/Users/admin/Obsidian/Деньги и право/.claudian/opencode/execution/044a8f26-e9d8-4cc9-a711-7721b1e6b85d/system.md}"
+    },
+    "claudian-safe": {
+      "mode": "primary",
+      "permission": {
+        "plan_enter": "deny",
+        "question": "allow",
+        "bash": "ask",
+        "edit": "ask"
+      },
+      "prompt": "{file:/Users/admin/Obsidian/Деньги и право/.claudian/opencode/execution/044a8f26-e9d8-4cc9-a711-7721b1e6b85d/system.md}"
+    },
+    "plan": {
+      "disable": true
+    }
+  }
+}
