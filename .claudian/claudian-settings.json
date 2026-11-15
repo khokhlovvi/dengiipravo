@@ -177,7 +177,7 @@
   "settingsProvider": "claude",
   "lastSelectedChatModel": {
     "providerId": "opencode",
-    "model": "opencode:kimi/kimi-k3"
+    "model": "opencode:kimi/kimi-k3.1-pro"
   },
   "savedProviderModel": {
     "claude": "opus",
