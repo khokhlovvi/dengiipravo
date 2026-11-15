@@ -1,6 +1,8 @@
 {
-  "permissionMode": "bypassPermissions",
+  "permissionMode": "auto",
   "autoApprove": true,
-  "provider": "opencode",
-  "model": "kimi/kimi-k3"
+  "provider": "kimi-code",
+  "model": "KIMI Plus/kimi-for-coding",
+  "baseUrl": "https://api.kimi.ai/coding/v1",
+  "apiKey": "sk-jsGrULJACFwx4ODNWqywWRA1Hv7GdTbnZIoyGsxANpeAfySx"
 }
