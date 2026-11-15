@@ -1,0 +1,6 @@
+{
+  "permissionMode": "bypassPermissions",
+  "autoApprove": true,
+  "allowAllTools": true,
+  "skipPermissions": true
+}
