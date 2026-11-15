@@ -18,6 +18,7 @@ for line in open(os.path.join(HERE, ".env"), encoding="utf-8"):
         k, v = line.rstrip("\n").split("=", 1)
         ENV[k.strip()] = v.strip()
 
+MAIL_TO = ENV.get("MAIL_TO", ENV.get("SMTP_USER", ""))
 STORE = os.path.join(HERE, "requests.jsonl")
 MSK = timezone(timedelta(hours=3))
 LIMITS = {"name": 100, "company": 150, "contact": 150, "topic": 80, "message": 3000, "page": 40}
@@ -59,7 +60,7 @@ def send_mail(rec):
     msg = EmailMessage()
     msg["Subject"] = f"Заявка с сайта: {rec['topic']} — {rec['name']}"
     msg["From"] = formataddr(("Сайт Деньги & Право", ENV["SMTP_USER"]))
-    msg["To"] = ENV.get("MAIL_TO", ENV["SMTP_USER"])
+    msg["To"] = MAIL_TO
     msg["Message-ID"] = make_msgid(domain="dengiipravo.ru")
     if "@" in rec["contact"]:
         msg["Reply-To"] = rec["contact"]
@@ -139,7 +140,7 @@ class Handler(BaseHTTPRequestHandler):
             mailed = True
         except Exception as e:
             log("письмо не ушло:", type(e).__name__, e)
-        note = f"Новая заявка с сайта\nНаправление: {rec['topic']}\n" + ("Подробности — на почте dengi_i_pravo@mail.ru" if mailed else "⚠ Письмо не ушло — заявка сохранена на сервере, нужна проверка")
+        note = f"Новая заявка с сайта\nНаправление: {rec['topic']}\n" + (f"Подробности — на почте {MAIL_TO}" if mailed else "⚠ Письмо не ушло — заявка сохранена на сервере, нужна проверка")
         notified = False
         try:
             notified = send_tg(note)
