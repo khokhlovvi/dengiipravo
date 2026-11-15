@@ -2,7 +2,7 @@
   "permissionMode": "auto",
   "autoApprove": true,
   "provider": "kimi-code",
-  "model": "KIMI Plus/kimi-for-coding",
+  "model": "kimi-code/kimi-for-coding",
   "baseUrl": "https://api.kimi.ai/coding/v1",
-  "apiKey": "sk-jsGrULJACFwx4ODNWqywWRA1Hv7GdTbnZIoyGsxANpeAfySx"
+  "useOAuth": true
 }
