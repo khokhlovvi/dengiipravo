@@ -156,9 +156,7 @@
       "preferredThinkingByModel": {},
       "selectedMode": "",
       "thinkingOptionsByModel": {},
-      "visibleModels": [
-        "kimi/kimi-k3"
-      ]
+      "visibleModels": []
     },
     "pi": {
       "cliPath": "",
