@@ -157,8 +157,7 @@
       "selectedMode": "",
       "thinkingOptionsByModel": {},
       "visibleModels": [
-        "kimi/kimi-k3",
-        "kimi/kimi-k3.1-pro"
+        "kimi/kimi-k3"
       ]
     },
     "pi": {
