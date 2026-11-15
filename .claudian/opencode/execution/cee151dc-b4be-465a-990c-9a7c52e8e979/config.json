@@ -25,5 +25,38 @@
     "plan": {
       "disable": true
     }
-  }
+  },
+  "provider": {
+    "kimi": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Kimi (Moonshot, подписка Plus)",
+      "options": {
+        "baseURL": "https://api.kimi.ai/coding/v1",
+        "apiKey": "{file:/tmp/kimi_credentials.json}"
+      },
+      "models": {
+        "kimi-k3": {
+          "name": "Kimi K3",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 32768
+          }
+        },
+        "kimi-k3.1-pro": {
+          "name": "Kimi K3.1 Pro",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 32768
+          }
+        }
+      }
+    }
+  },
+  "model": "kimi/kimi-k3"
 }
