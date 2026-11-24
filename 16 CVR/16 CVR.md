@@ -62,9 +62,25 @@ CVR (Client Voice Record) — протокол контакта с клиент�
 
 ## Все CVR
 
+### Проект Адама — лизинг
+
 ```dataview
 TABLE WITHOUT ID file.link AS "Контакт", client AS "Клиент", date AS "Дата", author AS "Прислал", channel AS "Канал"
-FROM "16 CVR" WHERE type = "cvr" SORT date DESC
+FROM "16 CVR" WHERE type = "cvr" AND project = "лизинг" SORT date DESC
+```
+
+### Проект Михаила — региональные юрфирмы
+
+```dataview
+TABLE WITHOUT ID file.link AS "Контакт", client AS "Клиент", date AS "Дата", author AS "Прислал", channel AS "Канал"
+FROM "16 CVR" WHERE type = "cvr" AND project = "юрфирмы" SORT date DESC
+```
+
+### Без метки проекта (заполнить `project`)
+
+```dataview
+TABLE WITHOUT ID file.link AS "Контакт", client AS "Клиент", date AS "Дата", author AS "Прислал"
+FROM "16 CVR" WHERE type = "cvr" AND !project SORT date DESC
 ```
 
 ## Открытые задачи из контактов
