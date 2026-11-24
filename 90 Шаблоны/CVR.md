@@ -3,6 +3,7 @@ type: cvr
 status: active
 date: {{date:YYYY-MM-DD}}
 client: 
+project: 
 participants: 
 author: 
 channel: 
