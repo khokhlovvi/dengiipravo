@@ -21,6 +21,47 @@ const contactPattern = String.raw`\s*([^\s@]+@[^\s@]+\.[^\s@]+|(\D*\d){6,}\D*)\s
 
 const motionOk = () => typeof window !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Яндекс.Метрика подключается только после согласия в cookie-баннере (152-ФЗ)
+const METRIKA_ID = 114677764;
+const CONSENT_KEY = 'dip-cookie-consent';
+let metrikaLoaded = false;
+function loadMetrika() {
+  if (metrikaLoaded || typeof window === 'undefined') return;
+  metrikaLoaded = true;
+  (function (m, e, t, r, i, k, a) {
+    m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+    m[i].l = 1 * new Date();
+    for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+    k = e.createElement(t); a = e.getElementsByTagName(t)[0]; k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+  })(window, document, 'script', `https://mc.yandex.ru/metrika/tag.js?id=${METRIKA_ID}`, 'ym');
+  window.ym(METRIKA_ID, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
+}
+
+// Cookie-баннер: выбор запоминается в localStorage браузера и на сервер не передаётся
+function CookieBanner() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const saved = localStorage.getItem(CONSENT_KEY);
+    if (saved === 'accepted') loadMetrika();
+    else if (!saved) setVisible(true);
+  }, []);
+  function decide(value) {
+    try { localStorage.setItem(CONSENT_KEY, value); } catch { /* приватный режим: просто скрываем */ }
+    if (value === 'accepted') loadMetrika();
+    setVisible(false);
+  }
+  if (!visible) return null;
+  return (
+    <div className="cookie-banner" role="region" aria-label="Уведомление о файлах cookie">
+      <p>Мы используем файлы cookie и Яндекс.Метрику, чтобы понимать, как посетители работают с сайтом, и делать его лучше. Подробнее — в <a href={`${BASE}/privacy`}>политике обработки персональных данных</a></p>
+      <div className="cookie-actions">
+        <button type="button" className="button button-small" onClick={() => decide('accepted')}>Принять</button>
+        <button type="button" className="text-button" onClick={() => decide('declined')}>Отклонить</button>
+      </div>
+    </div>
+  );
+}
+
 function Picture({ name, alt = '', className, priority, sizes = '100vw' }) {
   return (
     <picture className={className}>
@@ -281,7 +322,7 @@ function PrivacyPage() {
   return (
     <article className="container prose">
       <h1 className="page-title">Политика обработки персональных данных</h1>
-      <p className="prose-meta">Редакция от 12 октября 2026 года</p>
+      <p className="prose-meta">Редакция от 25 ноября 2026 года</p>
 
       <h2>Общие положения</h2>
       <p>Политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет, как {operator} (далее — Оператор) обрабатывает и защищает персональные данные посетителей сайта {site.url.replace('https://', '')}.</p>
@@ -293,14 +334,15 @@ function PrivacyPage() {
         <li>название компании, если оно указано;</li>
         <li>номер телефона или адрес электронной почты;</li>
         <li>текст обращения и выбранное направление;</li>
-        <li>технические данные, которые браузер передаёт серверу автоматически: IP-адрес, дата и время запроса, сведения о браузере.</li>
+        <li>технические данные, которые браузер передаёт серверу автоматически: IP-адрес, дата и время запроса, сведения о браузере;</li>
+        <li>данные веб-аналитики — страницы и действия на сайте, сведения об устройстве, — если посетитель согласился на файлы cookie.</li>
       </ul>
 
       <h2>Цели обработки</h2>
-      <p>Данные используются только для того, чтобы ответить на обращение, обсудить задачу посетителя и подготовить предложение. Мы не используем их для рекламных рассылок и не передаём третьим лицам, кроме случаев, предусмотренных законом.</p>
+      <p>Данные обращения используются только для того, чтобы ответить на обращение, обсудить задачу посетителя и подготовить предложение. Данные веб-аналитики — чтобы понимать, как посетители работают с сайтом, и улучшать его. Мы не используем данные для рекламных рассылок и не передаём третьим лицам, кроме случаев, предусмотренных законом.</p>
 
       <h2>Правовое основание</h2>
-      <p>Обработка ведётся на основании согласия субъекта персональных данных (пункт 1 части 1 статьи 6 Закона № 152-ФЗ), которое он даёт, отмечая соответствующее поле в форме заявки.</p>
+      <p>Обработка ведётся на основании согласия субъекта персональных данных (пункт 1 части 1 статьи 6 Закона № 152-ФЗ), которое он даёт, отмечая соответствующее поле в форме заявки, а для файлов cookie и веб-аналитики — нажимая кнопку «Принять» в уведомлении о файлах cookie.</p>
 
       <h2>Как мы обрабатываем данные</h2>
       <p>Оператор собирает, записывает, систематизирует, хранит, уточняет, использует и удаляет персональные данные с использованием средств автоматизации и без них. Данные хранятся на серверах, расположенных в Российской Федерации. Уведомления о новых заявках, которые сотрудники получают в мессенджере, не содержат персональных данных.</p>
@@ -312,8 +354,10 @@ function PrivacyPage() {
       <h2>Права посетителя</h2>
       <p>Посетитель вправе узнать, какие его данные обрабатываются, потребовать их уточнения или удаления и отозвать согласие. Для этого достаточно написать на <a href={`mailto:${site.email}`}>{site.email}</a>. Мы ответим в течение десяти рабочих дней.</p>
 
-      <h2>Файлы cookie</h2>
-      <p>Сайт не использует файлы cookie и сервисы веб-аналитики для отслеживания посетителей.</p>
+      <h2>Файлы cookie и веб-аналитика</h2>
+      <p>С согласия посетителя сайт использует сервис веб-аналитики «Яндекс.Метрика» (ООО «Яндекс»). Сервис записывает файлы cookie и собирает сведения о посещении: IP-адрес, сведения об устройстве и браузере, просмотренные страницы и действия на сайте. Эти данные помогают нам понимать, как посетители работают с сайтом, и делать его лучше.</p>
+      <p>Аналитика подключается только после нажатия кнопки «Принять» в уведомлении о файлах cookie. От неё можно отказаться кнопкой «Отклонить» в том же уведомлении, а также в любой момент удалить cookie и запретить их в настройках браузера — сайт продолжит работать в полном объёме. Сделанный выбор запоминается в локальном хранилище браузера и на сервер не передаётся.</p>
+      <p>Яндекс обрабатывает собранные данные на условиях, указанных в <a href="https://yandex.ru/legal/metrica_termsofuse/" target="_blank" rel="noopener">условиях использования Яндекс.Метрики</a>.</p>
 
       <h2>Изменение политики</h2>
       <p>Оператор может обновлять политику. Действующая редакция всегда опубликована на этой странице.</p>
@@ -446,6 +490,14 @@ export function App({ url }) {
     document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description);
   }, [path]);
 
+  // Просмотры страниц в Метрике при переходах без перезагрузки
+  // (первый просмотр отправляет сам init в loadMetrika)
+  const firstHit = useRef(true);
+  useEffect(() => {
+    if (firstHit.current) { firstHit.current = false; return; }
+    if (metrikaLoaded && typeof window.ym === 'function') window.ym(METRIKA_ID, 'hit', window.location.href);
+  }, [path]);
+
   function navigate(e, to) {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     e.preventDefault();
@@ -530,6 +582,7 @@ export function App({ url }) {
       </footer>
 
       <RequestDialog dialogRef={dialogRef} topic={topic} />
+      <CookieBanner />
       {BASE && <FeedbackWidget path={path} />}
     </>
   );
