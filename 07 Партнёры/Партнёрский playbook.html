@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Партнёрский playbook — Деньги и Право</title>
+<style>
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ink: #0f1318;
+  --text-2: #4b5664;
+  --text-3: #6a7584;
+  --navy: #082e50;
+  --navy-hover: #134166;
+  --navy-tint: #eaf1f7;
+  --line: #e1e6ec;
+  --line-strong: #c7d1db;
+  --surface: #f5f7f9;
+  --radius: 10px;
+  --gutter: clamp(20px, 3.4vw, 48px);
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  font-size: 17px; line-height: 1.6;
+  color: var(--ink); background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+main { max-width: 880px; margin-inline: auto; padding: clamp(32px, 6vw, 72px) var(--gutter) 80px; }
+header.hero { padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.hero-pill {
+  display: inline-flex; padding: 6px 16px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); font-size: 14px; color: var(--text-2); margin-bottom: 20px;
+}
+h1 { font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.15; text-wrap: balance; }
+h2 { font-size: clamp(1.3rem, 2.6vw, 1.6rem); font-weight: 600; letter-spacing: -.015em; line-height: 1.2; margin-bottom: 18px; text-wrap: balance; }
+h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+.lead { margin-top: 16px; max-width: 720px; font-size: 18px; line-height: 1.55; color: var(--text-2); }
+.meta { margin-top: 14px; font-size: 14px; color: var(--text-3); }
+nav.toc { margin-top: 22px; }
+nav.toc ul { display: flex; flex-wrap: wrap; gap: 8px 10px; list-style: none; padding: 0; }
+nav.toc a {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 14px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+  font-size: 14px; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color .2s, border-color .2s;
+}
+nav.toc a:hover { color: var(--navy); border-color: var(--line-strong); }
+section { margin-top: clamp(40px, 6vw, 64px); scroll-margin-top: 20px; }
+p { color: var(--text-2); margin-bottom: 1em; max-width: 760px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--ink); }
+a { color: var(--navy); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
+a:hover { text-decoration-color: var(--navy); }
+ul, ol { color: var(--text-2); padding-left: 22px; margin-bottom: 1em; max-width: 760px; }
+li { margin-bottom: 6px; }
+.steps { display: grid; gap: 12px; counter-reset: step; margin: 20px 0; }
+.step { display: flex; gap: 18px; padding: 20px 22px; border-radius: 16px; background: var(--surface); }
+.step-num {
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff;
+  font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.step h3 { margin-bottom: 4px; }
+.step p { font-size: 15.5px; margin: 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 20px 0; }
+.card { padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+.card.tint { background: var(--navy-tint); border-color: #d3e0ec; }
+.card-kind { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+.card.tint .card-kind { color: var(--navy); }
+.card h3 { margin-bottom: 6px; }
+.card p, .card li { font-size: 15px; }
+.card ul { padding-left: 18px; margin: 0; }
+.copy {
+  position: relative; margin: 16px 0 20px; padding: 22px 24px;
+  border: 1px dashed var(--line-strong); border-radius: 12px; background: #fff;
+}
+.copy-label {
+  display: inline-block; margin-bottom: 12px; padding: 3px 10px; border-radius: 999px;
+  background: var(--navy); color: #fff; font-size: 12.5px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase;
+}
+.copy p { color: var(--ink); font-size: 15.5px; }
+.copy .btn-example {
+  display: inline-block; margin-top: 14px; padding: 12px 22px; border-radius: var(--radius);
+  background: var(--navy); color: #fff; font-size: 15px; font-weight: 500; text-decoration: none;
+}
+table { width: 100%; border-collapse: collapse; margin: 16px 0 20px; font-size: 15px; }
+th, td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+thead th { font-size: 13px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); border-bottom: 1px solid var(--line-strong); }
+tbody th { font-weight: 600; color: var(--ink); width: 26%; }
+td { color: var(--text-2); }
+.note { margin: 20px 0; padding: 18px 22px; border-radius: 12px; background: var(--navy-tint); border-left: 3px solid var(--navy); }
+.note p { font-size: 15px; }
+.warn { background: #fdf6e8; border-left-color: #b7a35a; }
+.checklist { list-style: none; padding: 0; margin: 20px 0; }
+.checklist li {
+  display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; margin-bottom: 8px;
+  border: 1px solid var(--line); border-radius: 12px; color: var(--text-2); font-size: 15.5px;
+}
+.checklist li::before {
+  content: ""; flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px;
+  border: 2px solid var(--navy); border-radius: 6px;
+}
+.checklist strong { display: block; margin-bottom: 2px; }
+footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; color: var(--text-3); }
+footer a { color: var(--text-3); }
+footer a:hover { color: var(--navy); }
+@media (max-width: 640px) {
+  .step { flex-direction: column; gap: 10px; }
+  tbody th { width: 34%; }
+  th, td { padding: 10px; }
+}
+@media print {
+  body { font-size: 11pt; }
+  main { padding: 0; max-width: none; }
+  nav.toc, footer { display: none; }
+  section { break-inside: avoid-page; margin-top: 28px; }
+  .step, .card, .copy, .checklist li { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+  <span class="hero-pill">Внутренний документ · для партнёрской программы</span>
+  <h1>Партнёрский playbook — как юрфирме подключить «Деньги и Право» как регионального консультанта на юге</h1>
+  <p class="lead">Пошаговая инструкция подключения: три формата работы, готовые тексты для сайта партнёра и для нашего сайта, пакет документов, процесс приёма дел и чек-лист запуска</p>
+  <p class="meta">Деньги и Право · Краснодарский край и СКФО · ноябрь 2026 · основа — «Партнёрская дистрибуция: исследование и модель»</p>
+  <nav class="toc" aria-label="Оглавление"><ul>
+    <li><a href="#formats">Форматы работы</a></li>
+    <li><a href="#partner-site">Сайт партнёра</a></li>
+    <li><a href="#our-site">Наш сайт</a></li>
+    <li><a href="#docs">Документы</a></li>
+    <li><a href="#intake">Приём дел</a></li>
+    <li><a href="#metrics">Метрики</a></li>
+    <li><a href="#launch">Чек-лист запуска</a></li>
+    <li><a href="#open">Открытые пункты</a></li>
+  </ul></nav>
+</header>
+
+<section id="formats">
+  <h2>1. Форматы работы</h2>
+  <p>Партнёр — независимая юридическая фирма из другого региона. Когда её клиенту нужна работа на месте в Краснодарском крае или СКФО, фирма привлекает «Деньги и Право» в одном из трёх форматов. Формат выбирается под конкретный запрос и может меняться от дела к делу.</p>
+  <div class="cards">
+    <div class="card">
+      <span class="card-kind">Формат 1</span>
+      <h3>Передача запроса</h3>
+      <p>Партнёр знакомит нас с клиентом или направляет его по партнёрской ссылке. Клиент заключает договор напрямую с «Деньги и Право». Партнёр сохраняет отношения с клиентом и получает вознаграждение по соглашению.</p>
+    </div>
+    <div class="card tint">
+      <span class="card-kind">Формат 2 · основной</span>
+      <h3>Совместное ведение</h3>
+      <p>Партнёр остаётся ведущим консультантом клиента, мы берём местный участок: суд, проверка объекта, переговоры, действия в органах. Роли, пределы поручения, цена местной работы и отчётность фиксируются до старта.</p>
+    </div>
+    <div class="card">
+      <span class="card-kind">Формат 3</span>
+      <h3>Агентская схема</h3>
+      <p>Партнёр добавляет нашу услугу в свой каталог и коммерческие предложения под своим брендом. Клиент платит «Деньги и Право» напрямую, партнёр получает процент от стоимости услуг по дополнительному соглашению.</p>
+    </div>
+  </div>
+  <div class="note">
+    <p><strong>Что партнёр получает в любом формате:</strong> удержание клиента, которому нужна работа на юге (не уходит к местным конкурентам), предсказуемое качество «на месте» по зафиксированным стандартам, вознаграждение или взаимные направления клиентов — мы передаём партнёру запросы наших клиентов в его регионе</p>
+  </div>
+</section>
+
+<section id="partner-site">
+  <h2>2. Что партнёр размещает у себя на сайте</h2>
+  <p>Три точки интеграции: карточка услуги в разделе практики, позиция в прайсе или шаблоне коммерческого предложения, партнёрская ссылка на нашу форму. Ниже — готовый текст карточки, партнёр может адаптировать формулировки под свой тон, сохранив смысл и название.</p>
+
+  <div class="copy">
+    <span class="copy-label">Готовый текст · карточка на сайте партнёра</span>
+    <p><strong>Региональный консультант в Краснодарском крае и СКФО</strong></p>
+    <p>Вместе с региональным партнёром — компанией «Деньги и Право» — мы решаем задачи клиентов на юге России: представительство в судах Краснодарского края и кассационных инстанциях юга, проверка объектов недвижимости перед сделкой или финансированием, защита прав владельцев недвижимости, сопровождение сделок с землёй и коммерческой недвижимостью, подбор финансирования — кредит, лизинг, банковские гарантии, региональные меры поддержки.</p>
+    <p>Команда «Деньги и Право» работает на месте и знает региональную судебную практику, включая дела, доведённые до Верховного Суда РФ.</p>
+    <a class="btn-example" href="#partner-site">Запросить оценку</a>
+  </div>
+
+  <ul>
+    <li><strong>Кнопка «Запросить оценку»</strong> ведёт на нашу форму с идентификатором партнёра: <code>dengiipravo.ru?utm_partner=…</code> — идентификатор выдаём при подключении, по нему считаем обращения и вознаграждение</li>
+    <li><strong>Прайс или шаблон КП партнёра:</strong> добавляются две позиции — «Очное участие в судебном заседании на юге» и «Проверка объекта недвижимости в Краснодарском крае» — с составом работ и пометкой «с региональным партнёром». Цифры партнёр ставит свои, наша внутренняя тарифная сетка передаётся после подписания соглашения</li>
+    <li><strong>Условия публикации:</strong> название «Деньги и Право», география (Краснодарский край и СКФО), перечень услуг — согласуются один раз и дальше не меняются без уведомления</li>
+  </ul>
+</section>
+
+<section id="our-site">
+  <h2>3. Что «Деньги и Право» размещает у себя</h2>
+  <p>На dengiipravo.ru появляется раздел «Партнёры» — это взаимность из соглашения и одновременно ответ на главный запрос проверяющих: подтвердить, что за компанией стоят люди и практика.</p>
+  <div class="copy">
+    <span class="copy-label">Готовый текст · раздел «Партнёры» на dengiipravo.ru</span>
+    <p><strong>Региональные партнёры</strong></p>
+    <p>Мы работаем с юридическими фирмами других регионов. Если клиенту партнёра нужна работа на месте в Краснодарском крае и СКФО — суд, проверка объекта, сделка, финансирование, — партнёр направляет запрос нам, и мы делаем местную часть по согласованным стандартам. И наоборот: задачи наших клиентов в других регионах мы передаём проверенным партнёрам.</p>
+    <p><em>Далее — карточки партнёров: название фирмы, город, практики, контакт ответственного</em></p>
+  </div>
+  <ul>
+    <li>Раздел дополняется блоком «Кто будет работать с вами»: фотографии и роли команды — правовое направление, финансы и представительство, руководство</li>
+    <li>Публикация имени партнёра — только с его письменного согласия, оно фиксируется в соглашении о сотрудничестве (наше правило от 04.11.2026)</li>
+    <li>Сайт партнёра и наш сайт ссылаются друг на друга одинаковыми формулировками статуса: «региональный партнёр» / «региональный консультант»</li>
+  </ul>
+</section>
+
+<section id="docs">
+  <h2>4. Документы, которыми фиксируется партнёрство</h2>
+  <p>Пакет из четырёх документов. Рамочное соглашение подписывается один раз, коммерческие условия и конкретные дела — приложениями и дополнительными соглашениями, чтобы не переподписывать основной текст. За образец механики взят действующий договор № 01/С от 17.09.2026 с «РапидаТех» (передача клиентов за процент, вознаграждение допсоглашениями, конфиденциальность 5 лет).</p>
+  <table>
+    <thead><tr><th scope="col">Документ</th><th scope="col">Что фиксирует</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">1. Соглашение о сотрудничестве</th><td>Рамочный документ: статус «региональный партнёр», территория (Краснодарский край и СКФО), перечень услуг, порядок направления запросов, правила использования названия и логотипа обеих сторон, взаимность направлений, конфиденциальность 5 лет, согласие партнёра на упоминание сотрудничества на сайте «Деньги и Право». Подписывается от лица ООО «Деньги и Право», подписант — генеральный директор</td></tr>
+      <tr><th scope="row">2. Допсоглашение о вознаграждении</th><td>Коммерческая часть: размер процента или фиксированной суммы за переданного клиента, база расчёта (оплаченные счета), сроки выплаты, порядок учёта по партнёрской ссылке. Индивидуально по каждому партнёру, без изменения рамочного соглашения</td></tr>
+      <tr><th scope="row">3. Приложение «Порядок совместного ведения дел»</th><td>Регламент формата 2: кто ведущий консультант и кто общается с клиентом, пределы местного поручения, единый контакт с каждой стороны, срок первого ответа, формат и периодичность отчётов, согласование дополнительных работ и бюджета, порядок сдачи-приёмки результата</td></tr>
+      <tr><th scope="row">4. Условия обработки персональных данных</th><td>Основание передачи контактов и материалов клиента: согласие клиента (152-ФЗ, ст. 6, 9) собирает передающая сторона до передачи; состав передаваемых данных; запрет использования данных вне поручения. Клиент, заполнивший форму на нашем сайте по ссылке партнёра, даёт согласие сам в момент отправки</td></tr>
+    </tbody>
+  </table>
+  <div class="note warn">
+    <p><strong>Чего в пакете нет и почему:</strong> договора с клиентом — он всегда отдельный и прямой (клиент ↔ «Деньги и Право», либо клиент ↔ партнёр в формате 2, где мы действуем по поручению партнёра). Эксклюзивности на регион на старте не даём — она становится предметом разговора после подтверждённого потока дел</p>
+  </div>
+</section>
+
+<section id="intake">
+  <h2>5. Как принимаем дела от партнёра</h2>
+  <div class="steps">
+    <div class="step"><span class="step-num">1</span><div><h3>Заявка</h3><p>Клиент заполняет форму по партнёрской ссылке или партнёр передаёт запрос ответственному за приём. Единый контакт с нашей стороны — Михаил Толуб, 8 (918) 335-08-38</p></div></div>
+    <div class="step"><span class="step-num">2</span><div><h3>Первый ответ — в течение 4 рабочих часов</h3><p>Подтверждаем получение, задаём уточняющие вопросы, фиксируем срочность. Стандарт скорости ответа взят из практики международных сетей (TerraLex) и закрепляется в приложении к соглашению</p></div></div>
+    <div class="step"><span class="step-num">3</span><div><h3>Проверка конфликта интересов</h3><p>Сверяем стороны спора по нашей базе дел и партнёрских связей до получения материалов дела</p></div></div>
+    <div class="step"><span class="step-num">4</span><div><h3>Оценка — до 2 рабочих дней</h3><p>Экспресс-оценка ситуации с составом работ, сроком и стоимостью. При переходе в договор её стоимость засчитывается</p></div></div>
+    <div class="step"><span class="step-num">5</span><div><h3>Договор и старт работ</h3><p>Прямой договор с клиентом (форматы 1 и 3) или поручение по соглашению с партнёром (формат 2). В судебных делах — лимит часов в договоре и регулярные отчёты о времени</p></div></div>
+    <div class="step"><span class="step-num">6</span><div><h3>Отчётность партнёру</h3><p>По совместным делам — отчёт по форме приложения; по переданным клиентам — статус для расчёта вознаграждения. Единый контакт не меняется на всём протяжении дела</p></div></div>
+  </div>
+</section>
+
+<section id="metrics">
+  <h2>6. Что считаем по каждому партнёру</h2>
+  <p>Партнёрская программа управляется цифрами, как в международных сетях (Pangea Net фиксировала 280 передач запросов между участниками за 2025 год и публикует разбивку по фирмам). Учёт ведём по идентификатору партнёра в ссылке и в карточке соглашения.</p>
+  <div class="cards">
+    <div class="card"><span class="card-kind">Воронка</span><h3>Обращения → поручения → оплаты</h3><p>Сколько запросов пришло от партнёра, сколько принято в работу, сколько оплачено. Решения о развитии связи принимаем по оплаченным делам, а не по числу карточек на сайтах</p></div>
+    <div class="card"><span class="card-kind">Качество</span><h3>Скорость и удержание</h3><p>Соблюдение срока первого ответа, доля дел, завершённых без эскалаций, повторные обращения того же партнёра</p></div>
+    <div class="card"><span class="card-kind">Взаимность</span><h3>Встречный поток</h3><p>Сколько запросов мы передали партнёру в его регионе. Взаимность — условие долгой связи, прописано в письме Better Chance и переносится на всех партнёров</p></div>
+  </div>
+</section>
+
+<section id="launch">
+  <h2>7. Чек-лист подключения партнёра</h2>
+  <p>Партнёр считается подключённым, когда отмечены все шесть пунктов. Первый пилот — три фирмы из разных регионов, кандидат первой очереди — екатеринбургская фирма, уже предложившая агентскую схему.</p>
+  <ul class="checklist">
+    <li><span><strong>Соглашение подписано</strong>Рамочное соглашение + допсоглашение о вознаграждении + приложение о порядке совместного ведения дел, согласие на упоминание на сайте получено</span></li>
+    <li><span><strong>Карточка опубликована у партнёра</strong>Текст из раздела 2 размещён в нужной практике, кнопка ведёт на форму с идентификатором партнёра</span></li>
+    <li><span><strong>Услуга добавлена в прайс или шаблон КП партнёра</strong>Минимум две позиции: заседание на юге и проверка объекта недвижимости</span></li>
+    <li><span><strong>Раздел «Партнёры» обновлён у нас</strong>Карточка партнёра на dengiipravo.ru с согласованными формулировками статуса</span></li>
+    <li><span><strong>Назначены ответственные с двух сторон</strong>У партнёра — юрист, закреплённый за нами; у нас — единый контакт приёма</span></li>
+    <li><span><strong>Тестовая заявка прошла полный цикл</strong>От кнопки на сайте партнёра до ответа ответственного — в заявленный срок</span></li>
+  </ul>
+</section>
+
+<section id="open">
+  <h2>8. Открытые пункты до запуска</h2>
+  <table>
+    <thead><tr><th scope="col">Пункт</th><th scope="col">Что решить</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Тарифная сетка для партнёров</th><td>Цифры внутреннего прайса (ставки часа по категориям, экспресс-оценка) командой пока не утверждены — playbook ссылается на сетку, но не публикует её. Утвердить на летучке и приложить к соглашению отдельным листом</td></tr>
+      <tr><th scope="row">Размер вознаграждения</th><td>Рыночный ориентир задан откликом екатеринбургской фирмы («процент от стоимости услуг»). Определить вилку и порядок расчёта в шаблоне допсоглашения</td></tr>
+      <tr><th scope="row">Адвокатский статус</th><td>Если в команде есть адвокаты, делёжка гонорара ограничена правилами ФПА. От ответа зависит, возможна ли агентская схема (формат 3) в правовой части услуг или только в финансовой</td></tr>
+      <tr><th scope="row">Адрес «на месте»</th><td>Юрлицо московское, работа на юге заявлена командой. Для карточек и соглашений нужна единая формулировка: «Москва + работа на месте в Краснодарском крае и СКФО» или краснодарский адрес</td></tr>
+      <tr><th scope="row">Идентификаторы и форма</th><td>Добавить на сайт учёт параметра <code>utm_partner</code> и скрытое поле в форме заявки, чтобы обращения партнёров считались автоматически</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p>Деньги и Право · <a href="https://dengiipravo.ru">dengiipravo.ru</a> · 8 (918) 335-08-38 · Партнёрский playbook, ноябрь 2026 · Документ внутренний, тексты карточек — для публикации после согласования с партнёром</p>
+</footer>
+</main>
+</body>
+</html>
